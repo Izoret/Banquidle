@@ -17,6 +17,12 @@
   </ul>
 </div>
 
+<div id="congrats-div">
+  <% if @people.include?(@todays_person) %>
+    <%= render partial: "game/congratulations" %>
+  <% end %>
+</div>
+
 <p>Person to guess : <%= @todays_person.quickname %></p>
 
 <script>
