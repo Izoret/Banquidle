@@ -1,0 +1,13 @@
+<li>
+  <ul>
+    <li style="color: <%= person.first_name.content == todays.first_name.content ? "limegreen" : "red" %>; font-weight: bold">
+      <%= person.first_name.content %>
+    </li>
+    <li style="color: <%= person.last_name.content == todays.last_name.content ? "limegreen" : "red" %>; font-weight: bold">
+      <%= person.last_name.content %>
+    </li>
+    <li style="color: <%= person.sex.value == todays.sex.value ? "limegreen" : "red" %>; font-weight: bold">
+      <%= person.sex.value %>
+    </li>
+  </ul>
+</li>

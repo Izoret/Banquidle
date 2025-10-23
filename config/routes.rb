@@ -11,4 +11,12 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   # root "posts#index"
+
+  root "game#index"
+
+  resources :game, only: [ :index ] do
+    collection do
+      post :submit_guess
+    end
+  end
 end
