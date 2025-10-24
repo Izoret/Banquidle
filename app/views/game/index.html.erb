@@ -1,24 +1,30 @@
 <h1>Banquidle</h1>
 
-<div id="flash">
-  <%= render "layouts/flash" %>
-</div>
+<%= render "layouts/flash" %>
 
 <%= form_with url: submit_guess_game_index_path, data: { turbo_stream: true }, method: :post, id: "guess-form" do |f| %>
   <%= f.text_field :quickname, placeholder: "Quickname d'une personne" %>
   <%= f.submit "Envoyer" %>
 <% end %>
 
-<div>
-  <ul id="guesses">
-    <%= render partial: "people/person",
-               collection: @people,
-               locals: { todays: @todays_person } if defined?(@people) %>
-  </ul>
-</div>
+<table>
+  <thead>
+  <tr>
+    <th>Prénom</th>
+    <th>Nom</th>
+    <th>Sexe</th>
+    <th>Statut Pro</th>
+  </tr>
+  </thead>
+  <tbody id="guesses">
+  <%= render partial: "people/person",
+             collection: @prev_people,
+             locals: { todays: @todays_person } if defined?(@prev_people) %>
+  </tbody>
+</table>
 
 <div id="congrats-div">
-  <% if @people.include?(@todays_person) %>
+  <% if @prev_people.include?(@todays_person) %>
     <%= render partial: "game/congratulations" %>
   <% end %>
 </div>

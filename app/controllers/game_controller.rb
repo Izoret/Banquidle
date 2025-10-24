@@ -1,10 +1,12 @@
 class GameController < ApplicationController
   def index
+    @names = Person.joins(:first_name, :last_name).select("first_names.content AS first_name_content, last_names.content AS last_name_content")
+    
     @todays_person = get_todays_person
 
     prev_guesses = session[:guesses] || []
-    @people = Person.where(quickname: prev_guesses)
-    @people = prev_guesses.map { |q| @people.find { |p| p.quickname == q } }.compact.reverse
+    @prev_people = Person.where(quickname: prev_guesses)
+    @prev_people = prev_guesses.map { |q| @prev_people.find { |p| p.quickname == q } }.compact.reverse
   end
 
   def submit_guess
