@@ -41,7 +41,7 @@
   <% end %>
 </div>
 
-<p>Person to guess : <%= @todays_person.quickname %></p>
+<% puts "Person to guess : #{@todays_person.quickname}" %>
 
 <script>
     document.addEventListener("turbo:submit-end", function (event) {
