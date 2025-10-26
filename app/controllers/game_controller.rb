@@ -7,6 +7,8 @@ class GameController < ApplicationController
     prev_guesses = session[:guesses] || []
     @prev_people = Person.where(quickname: prev_guesses)
     @prev_people = prev_guesses.map { |q| @prev_people.find { |p| p.quickname == q } }.compact.reverse
+
+    @nb_tries = prev_guesses.length
   end
 
   def submit_guess
@@ -29,6 +31,7 @@ class GameController < ApplicationController
         prev_guesses << @person.quickname
         session[:guesses] = prev_guesses
 
+        @nb_tries = prev_guesses.length
         format.turbo_stream
       end
     end

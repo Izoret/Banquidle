@@ -37,7 +37,7 @@
 
 <div id="congrats-div">
   <% if @prev_people.include?(@todays_person) %>
-    <%= render partial: "game/congratulations" %>
+    <%= render partial: "game/congratulations", locals: { nb_tries: @nb_tries } %>
   <% end %>
 </div>
 
