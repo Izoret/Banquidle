@@ -4,38 +4,44 @@ form {
   border-radius: var(--radius);
   border: 1px solid var(--border-color);
   margin-bottom: var(--spacing-xl);
+  box-shadow: var(--shadow-lg), 0 0 30px var(--secondary-color) inset;
+  backdrop-filter: blur(5px); /* Glassmorphism effect */
 }
 
 label {
   display: block;
   font-weight: 700;
   margin-bottom: var(--spacing-sm);
-  color: var(--text-primary);
+  color: var(--primary-color);
   font-size: 0.875rem;
   text-transform: uppercase;
   letter-spacing: 0.05em;
+  text-shadow: 0 0 3px var(--primary-color);
 }
 
 input[type="text"] {
   width: 100%;
   padding: var(--spacing-md);
-  font-size: 1rem;
-  border: 2px solid var(--border-color);
+  font-size: 1.1rem; /* Larger font for input */
+  border: 1px solid var(--border-color);
   border-radius: var(--radius);
   margin-bottom: var(--spacing-md);
-  transition: border-color 0.2s ease;
+  transition: all 0.2s ease;
   font-family: inherit;
   color: var(--text-primary);
-  background: var(--bg-color);
+  background: var(--bg-color); /* Darkest background */
+  letter-spacing: 0.05em;
 }
 
 input[type="text"]:focus {
   outline: none;
-  border-color: var(--text-primary);
+  border-color: var(--secondary-color); /* Magenta focus */
+  box-shadow: 0 0 10px var(--secondary-color);
 }
 
 input[type="text"]::placeholder {
   color: var(--text-secondary);
+  font-style: italic;
 }
 
 @media (max-width: 768px) {

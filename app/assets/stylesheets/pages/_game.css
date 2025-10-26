@@ -1,20 +1,22 @@
+/* Main container for the game */
 .container {
-  max-width: 500px;
+  max-width: 600px; /* Slightly wider for the new table */
   margin: 0 auto;
   padding: var(--spacing-md);
 }
 
-/* Header with border bottom like Wordle */
+/* Header */
 h1 {
-  font-size: 2.25rem;
+  font-size: 2.5rem;
   font-weight: 700;
   text-align: center;
-  color: var(--text-primary);
+  color: var(--primary-color);
   margin-bottom: 0;
   padding: var(--spacing-lg) 0;
-  letter-spacing: 0.01em;
+  letter-spacing: 0.1em;
   border-bottom: 1px solid var(--border-color);
   margin-bottom: var(--spacing-lg);
+  text-shadow: 0 0 10px var(--primary-color), 0 0 20px var(--primary-color);
 }
 
 /* Congratulations Section */
@@ -24,15 +26,18 @@ h1 {
 }
 
 #congrats-div h3 {
-  background: var(--card-bg);
-  color: var(--text-primary);
+  background: transparent;
+  color: var(--correct-answer);
   padding: var(--spacing-xl);
-  border: 1px solid var(--border-color);
+  border: 1px solid var(--correct-answer);
   border-radius: var(--radius-lg);
   font-size: 1.25rem;
   font-weight: 700;
-  box-shadow: var(--shadow-md);
+  box-shadow: 0 0 10px var(--correct-answer), 0 0 20px var(--correct-answer) inset;
   animation: celebrate 0.5s ease-out;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  text-shadow: 0 0 8px var(--correct-answer);
 }
 
 @keyframes celebrate {
@@ -53,10 +58,11 @@ h1 {
 @media (max-width: 768px) {
   .container {
     padding: var(--spacing-sm);
+    max-width: 100%;
   }
 
   h1 {
-    font-size: 1.75rem;
+    font-size: 2rem;
     padding: var(--spacing-md) 0;
   }
 

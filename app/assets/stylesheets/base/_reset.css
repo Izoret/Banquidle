@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap');
+
 *,
 *::before,
 *::after {
@@ -7,8 +9,9 @@
 }
 
 body {
-  font-family: 'Clear Sans', 'Helvetica Neue', Arial, sans-serif;
-  background: var(--bg-color);
+  font-family: var(--font-family);
+  /* Dark, space-like gradient */
+  background: var(--bg-color) radial-gradient(ellipse at bottom, #1b2735 0%, #090a0f 100%);
   min-height: 100vh;
   color: var(--text-primary);
   line-height: 1.5;

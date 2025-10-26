@@ -4,27 +4,31 @@ table {
   border-radius: var(--radius);
   overflow: hidden;
   border: 1px solid var(--border-color);
-  border-collapse: separate;
+  border-collapse: collapse; /* Changed to collapse */
   border-spacing: 0;
+  box-shadow: var(--shadow-lg);
+  backdrop-filter: blur(5px);
 }
 
 thead {
-  background: var(--bg-secondary);
-  border-bottom: 1px solid var(--border-color);
+  background: transparent;
+  border-bottom: 2px solid var(--border-color); /* Thicker header border */
 }
 
 thead th {
   padding: var(--spacing-md);
   font-weight: 700;
   text-align: center;
-  font-size: 0.75rem;
+  font-size: 0.85rem;
   text-transform: uppercase;
-  letter-spacing: 0.1em;
-  color: var(--text-primary);
+  letter-spacing: 0.15em; /* More spacing for header */
+  color: var(--primary-color);
+  text-shadow: 0 0 5px var(--primary-color);
 }
 
 tbody tr {
-  border-bottom: 1px solid var(--border-color);
+  /* Subtle dashed lines for a grid feel */
+  border-bottom: 1px dashed rgba(0, 255, 255, 0.2);
   animation: flipIn 0.4s ease-out;
 }
 
@@ -33,42 +37,43 @@ tbody tr:last-child {
 }
 
 tbody td {
-  padding: var(--spacing-sm);
+  padding: var(--spacing-md); /* More padding */
   font-weight: 700;
-  font-size: 0.875rem;
+  font-size: 1rem; /* Larger font */
   text-align: center;
   transition: all 0.2s ease;
   text-transform: uppercase;
-  letter-spacing: 0.05em;
+  letter-spacing: 0.1em;
+  /* Remove old cell-based borders/margins */
+  margin: 0;
+  border-radius: 0;
 }
 
-/* Wordle-style tile colors */
+/* Cell Colors */
 tbody td.correct {
-  background-color: var(--correct-answer);
-  color: var(--text-inverse);
-  border: 2px solid var(--correct-answer);
+  background-color: rgba(0, 255, 100, 0.1);
+  color: var(--correct-answer);
+  text-shadow: 0 0 8px var(--correct-answer);
+  border-left: 1px solid var(--correct-answer); /* Add side borders */
+  border-right: 1px solid var(--correct-answer);
 }
 
 tbody td.incorrect {
-  background-color: var(--wrong-answer);
-  color: var(--text-inverse);
-  border: 2px solid var(--wrong-answer);
-}
-
-/* Add spacing between cells */
-tbody td {
-  margin: var(--spacing-xs);
-  border-radius: var(--radius);
+  background-color: rgba(255, 77, 77, 0.1);
+  color: var(--wrong-answer);
+  text-shadow: 0 0 8px var(--wrong-answer);
+  border-left: 1px solid var(--wrong-answer);
+  border-right: 1px solid var(--wrong-answer);
 }
 
 /* Empty State */
 tbody:empty::after {
-  content: "Aucune tentative pour l'instant";
+  content: "Aucune tentative... Initialisation du système.";
   display: block;
   padding: var(--spacing-xl);
   text-align: center;
   color: var(--text-secondary);
-  font-style: normal;
+  font-style: italic;
   font-size: 0.875rem;
 }
 
@@ -86,12 +91,14 @@ tbody:empty::after {
 @media (max-width: 768px) {
   thead th {
     padding: var(--spacing-sm);
-    font-size: 0.65rem;
+    font-size: 0.75rem;
+    letter-spacing: 0.1em;
   }
 
   tbody td {
-    padding: var(--spacing-sm) var(--spacing-xs);
-    font-size: 0.75rem;
+    padding: var(--spacing-md) var(--spacing-xs);
+    font-size: 0.875rem;
+    letter-spacing: 0.05em;
   }
 }
 
@@ -102,7 +109,7 @@ tbody:empty::after {
 
   thead th,
   tbody td {
-    padding: var(--spacing-xs);
-    font-size: 0.65rem;
+    padding: var(--spacing-sm) var(--spacing-xs);
+    font-size: 0.75rem;
   }
 }
