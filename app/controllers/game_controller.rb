@@ -37,7 +37,12 @@ class GameController < ApplicationController
     end
   end
 
+  require "digest"
   private def get_todays_person
-    Person.find_by(quickname: "poupet")
+    quicknames = Person.order(:quickname).pluck(:quickname)
+    hex = Digest::MD5.hexdigest((Date.today).to_s)
+    idx = hex.to_i(16) % quicknames.size
+    selected_quickname = quicknames[idx]
+    Person.find_by(quickname: selected_quickname)
   end
 end
