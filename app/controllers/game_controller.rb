@@ -1,7 +1,7 @@
 class GameController < ApplicationController
   def index
-    @names = Person.joins(:first_name, :last_name).select("first_names.content AS first_name_content, last_names.content AS last_name_content")
-    
+    @people = Person.joins(:first_name, :last_name).select("quickname, first_names.content AS first_name_content, last_names.content AS last_name_content")
+
     @todays_person = get_todays_person
 
     prev_guesses = session[:guesses] || []

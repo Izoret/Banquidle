@@ -3,7 +3,19 @@
 <%= render "layouts/flash" %>
 
 <%= form_with url: submit_guess_game_index_path, data: { turbo_stream: true }, method: :post, id: "guess-form" do |f| %>
-  <%= f.text_field :quickname, placeholder: "Quickname d'une personne" %>
+  <%= f.label :quickname, "Choisis une personne :" %>
+  <%= f.text_field :quickname,
+                   list: "people-list",
+                   placeholder: "Commence à taper un prénom ou nom" %>
+
+  <datalist id="people-list">
+    <% @people.each do |p| %>
+      <option value="<%= p.quickname %>" label="<%= "#{p.first_name_content} #{p.last_name_content}" %>">
+        <%= "#{p.first_name_content} #{p.last_name_content}" %>
+      </option>
+    <% end %>
+  </datalist>
+
   <%= f.submit "Envoyer" %>
 <% end %>
 
