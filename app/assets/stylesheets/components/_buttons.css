@@ -1,0 +1,74 @@
+.btn {
+  background: var(--primary-color);
+  color: white;
+  padding: 0.75rem 2rem;
+  font-size: 1rem;
+  font-weight: 600;
+  border: none;
+  border-radius: var(--radius);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  width: 100%;
+  font-family: inherit;
+  box-shadow: var(--shadow-sm);
+  text-align: center;
+  text-decoration: none;
+  display: inline-block; /* Allows width to work */
+}
+
+.btn:hover {
+  background: #1d4ed8;
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-md);
+}
+
+.btn:active {
+  transform: translateY(0);
+  box-shadow: var(--shadow-sm);
+}
+
+/* Apply .btn style to form submits and button elements */
+input[type="submit"],
+button {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  @extend .btn;
+}
+
+/* Note: In standard CSS (not SCSS), @extend won't work.
+   The original file duplicated styles, which is fine.
+   For simplicity, I'll revert to the original's duplication.
+*/
+
+input[type="submit"],
+button {
+  background: var(--primary-color);
+  color: white;
+  padding: 0.75rem 2rem;
+  font-size: 1rem;
+  font-weight: 600;
+  border: none;
+  border-radius: var(--radius);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  width: 100%;
+  font-family: inherit;
+  box-shadow: var(--shadow-sm);
+  -webkit-appearance: none; /* Add appearance reset */
+  -moz-appearance: none;
+  appearance: none;
+}
+
+input[type="submit"]:hover,
+button:hover {
+  background: #1d4ed8;
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-md);
+}
+
+input[type="submit"]:active,
+button:active {
+  transform: translateY(0);
+}
+

@@ -1,0 +1,97 @@
+.container {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+/* Header */
+h1 {
+  font-size: 3rem;
+  font-weight: 800;
+  text-align: center;
+  color: white;
+  margin-bottom: 2rem;
+  text-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  letter-spacing: -0.02em;
+}
+
+/* Congratulations Section */
+#congrats-div {
+  margin-top: 2rem;
+  text-align: center;
+}
+
+#congrats-div h3 {
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+  color: white;
+  padding: 2rem;
+  border-radius: var(--radius-lg);
+  font-size: 1.5rem;
+  box-shadow: var(--shadow-lg);
+  animation: celebrate 0.6s ease-out;
+}
+
+@keyframes celebrate {
+  0% {
+    transform: scale(0.9);
+    opacity: 0;
+  }
+  50% {
+    transform: scale(1.05);
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  /* Adjust body padding on smaller screens */
+  body {
+    padding: 1rem 0.5rem;
+  }
+
+  h1 {
+    font-size: 2rem;
+  }
+
+  form {
+    padding: 1.5rem;
+  }
+
+  /* Reduce table text/padding */
+  table {
+    font-size: 0.85rem;
+  }
+
+  thead th,
+  tbody td {
+    padding: 0.75rem 0.5rem;
+  }
+
+  thead th {
+    font-size: 0.75rem;
+  }
+
+  #congrats-div h3 {
+    font-size: 1.25rem;
+    padding: 1.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  h1 {
+    font-size: 1.75rem;
+  }
+
+  table {
+    font-size: 0.8rem;
+  }
+
+  /* Further reduce padding for very small screens */
+  thead th,
+  tbody td {
+    padding: 0.5rem 0.25rem;
+  }
+}
+

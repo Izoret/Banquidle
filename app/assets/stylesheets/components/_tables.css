@@ -1,0 +1,77 @@
+table {
+  width: 100%;
+  background: var(--card-bg);
+  border-radius: var(--radius-lg);
+  overflow: hidden; /* Ensures radius clips content */
+  box-shadow: var(--shadow-lg);
+  border-collapse: collapse;
+}
+
+thead {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+}
+
+thead th {
+  padding: 1rem;
+  font-weight: 600;
+  text-align: left;
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+tbody tr {
+  border-bottom: 1px solid var(--border-color);
+  transition: background-color 0.2s ease;
+  animation: fadeIn 0.4s ease-out;
+}
+
+tbody tr:last-child {
+  border-bottom: none;
+}
+
+tbody tr:hover {
+  background-color: #f1f5f9;
+}
+
+tbody td {
+  padding: 1rem;
+  font-weight: 600;
+  font-size: 0.95rem;
+  transition: all 0.3s ease;
+  vertical-align: middle; /* Added for consistency */
+}
+
+/* Color-coded cells */
+tbody td.correct {
+  color: var(--correct-green) !important;
+  background-color: rgba(34, 197, 94, 0.1);
+}
+
+tbody td.incorrect {
+  color: var(--wrong-red) !important;
+  background-color: rgba(248, 113, 113, 0.1);
+}
+
+/* Empty State */
+tbody:empty::after {
+  content: "Aucune tentative pour l'instant. Commencez à deviner !";
+  display: block;
+  padding: 3rem;
+  text-align: center;
+  color: var(--text-secondary);
+  font-style: italic;
+}
+
+/* Animation for table rows */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-5px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
