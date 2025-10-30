@@ -2,7 +2,12 @@ class GameController < ApplicationController
   def index
     @people = Person.joins(:first_name, :last_name).select("quickname, first_names.content AS first_name_content, last_names.content AS last_name_content")
 
-    @todays_person = get_todays_person
+    if session[:today]
+      @todays_person = Person.find_by(quickname: session[:today])
+    else
+      @todays_person = get_todays_person
+      session[:today] = @todays_person.quickname
+    end
 
     prev_guesses = session[:guesses] || []
     @prev_people = Person.where(quickname: prev_guesses)
@@ -40,7 +45,7 @@ class GameController < ApplicationController
   require "digest"
   private def get_todays_person
     quicknames = Person.order(:quickname).pluck(:quickname)
-    hex = Digest::MD5.hexdigest(Date.today.to_s)
+    hex = Digest::MD5.hexdigest((Date.today + 2).to_s)
     idx = hex.to_i(16) % quicknames.size
     selected_quickname = quicknames[idx]
     Person.find_by(quickname: selected_quickname)
