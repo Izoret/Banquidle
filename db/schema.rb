@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2025_10_24_065255) do
+ActiveRecord::Schema[8.1].define(version: 2025_10_30_093823) do
   create_table "first_names", force: :cascade do |t|
     t.string "content"
     t.datetime "created_at", null: false
@@ -25,16 +25,25 @@ ActiveRecord::Schema[8.1].define(version: 2025_10_24_065255) do
     t.index ["content"], name: "index_last_names_on_content", unique: true
   end
 
+  create_table "origins", force: :cascade do |t|
+    t.string "content"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["content"], name: "index_origins_on_content", unique: true
+  end
+
   create_table "people", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.integer "first_name_id", null: false
     t.integer "last_name_id", null: false
+    t.integer "origin_id", null: false
     t.integer "pro_situation_id", null: false
-    t.string "quickname"
+    t.string "quickname", null: false
     t.integer "sex_id", null: false
     t.datetime "updated_at", null: false
     t.index ["first_name_id"], name: "index_people_on_first_name_id"
     t.index ["last_name_id"], name: "index_people_on_last_name_id"
+    t.index ["origin_id"], name: "index_people_on_origin_id"
     t.index ["pro_situation_id"], name: "index_people_on_pro_situation_id"
     t.index ["quickname"], name: "index_people_on_quickname", unique: true
     t.index ["sex_id"], name: "index_people_on_sex_id"
@@ -44,6 +53,7 @@ ActiveRecord::Schema[8.1].define(version: 2025_10_24_065255) do
     t.string "content"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["content"], name: "index_pro_situations_on_content", unique: true
   end
 
   create_table "sexes", force: :cascade do |t|
@@ -54,6 +64,7 @@ ActiveRecord::Schema[8.1].define(version: 2025_10_24_065255) do
 
   add_foreign_key "people", "first_names"
   add_foreign_key "people", "last_names"
+  add_foreign_key "people", "origins"
   add_foreign_key "people", "pro_situations"
   add_foreign_key "people", "sexes"
 end

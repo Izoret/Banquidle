@@ -5,5 +5,6 @@ class CreateProSituations < ActiveRecord::Migration[8.1]
 
       t.timestamps
     end
+    add_index :pro_situations, :content, unique: true
   end
 end

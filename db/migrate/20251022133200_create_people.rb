@@ -1,7 +1,7 @@
 class CreatePeople < ActiveRecord::Migration[8.1]
   def change
     create_table :people do |t|
-      t.string :quickname
+      t.string :quickname, null: false
       t.references :first_name, null: false, foreign_key: true
       t.references :last_name, null: false, foreign_key: true
       t.references :sex, null: false, foreign_key: true
