@@ -13,7 +13,7 @@ etu = ProSituation.find_or_create_by!(content: "Étudiant")
 m = Sex.find_or_create_by!(value: "M")
 f = Sex.find_or_create_by!(value: "F")
 
-o_inc = Origin.find_or_create_by!(content: "Inconnue")
+paris = Location.find_or_create_by!(content: "Paris")
 
 Person.create(
   quickname: "test",
@@ -21,5 +21,5 @@ Person.create(
   last_name: LastName.find_or_create_by!(content: "testN"),
   sex: m,
   pro_situation: etu,
-  origin: o_inc
+  location: paris
 )
