@@ -1,11 +1,13 @@
 class GameController < ApplicationController
+  skip_before_action :verify_authenticity_token, only: [ :submit_guess ]
+
   def index
     @people = Person.joins(:first_name, :last_name).select("quickname, first_names.content AS first_name_content, last_names.content AS last_name_content")
 
     if session[:today]
       @todays_person = Person.find_by(quickname: session[:today])
     else
-      @todays_person = get_todays_person
+      @todays_person = TodaysPersonService.call
       session[:today] = @todays_person.quickname
     end
 
@@ -17,7 +19,7 @@ class GameController < ApplicationController
   end
 
   def submit_guess
-    @todays_person = get_todays_person
+    @todays_person = TodaysPersonService.call
 
     prev_guesses = session[:guesses] || []
 
@@ -40,14 +42,5 @@ class GameController < ApplicationController
         format.turbo_stream
       end
     end
-  end
-
-  require "digest"
-  private def get_todays_person
-    quicknames = Person.order(:quickname).pluck(:quickname)
-    hex = Digest::MD5.hexdigest(Date.today.to_s)
-    idx = hex.to_i(16) % quicknames.size
-    selected_quickname = quicknames[idx]
-    Person.find_by(quickname: selected_quickname)
   end
 end
