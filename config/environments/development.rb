@@ -1,9 +1,7 @@
 require "active_support/core_ext/integer/time"
 
 Rails.application.configure do
-  config.hosts << "polliwog-noted-malamute.ngrok-free.app"
-  config.hosts << "1819a8b0ed559d.lhr.life"
-  config.hosts << "c74ebc9b9ab0f8.lhr.life"
+  config.hosts << "7c59bb97f4dfb9.lhr.life"
 
   # Settings specified here will take precedence over those in config/application.rb.
 

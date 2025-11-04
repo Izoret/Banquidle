@@ -34,8 +34,6 @@
   <% end %>
 </div>
 
-<%= button_to 'Try Again', retry_path, method: :post %>
-
 <script>
     document.addEventListener("turbo:submit-end", function (event) {
         if (event.target.id === "guess-form") event.target.reset()

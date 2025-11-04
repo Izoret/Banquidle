@@ -4,12 +4,7 @@ class GameController < ApplicationController
   def index
     @people = Person.joins(:first_name, :last_name).select("quickname, first_names.content AS first_name_content, last_names.content AS last_name_content")
 
-    if session[:today]
-      @todays_person = Person.find_by(quickname: session[:today])
-    else
-      @todays_person = TodaysPersonService.call
-      session[:today] = @todays_person.quickname
-    end
+    @todays_person = TodaysPersonService.call
 
     prev_guesses = session[:guesses] || []
     @prev_people = Person.where(quickname: prev_guesses)

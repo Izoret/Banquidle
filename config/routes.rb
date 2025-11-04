@@ -14,19 +14,9 @@ Rails.application.routes.draw do
 
   root "game#index"
 
-  post "retry", to: "main#clear_session_and_reload"
-
   resources :game, only: [ :index ] do
     collection do
       post :submit_guess
-    end
-  end
-
-  namespace :api do
-    resources :people, only: [ :index ] do
-      collection do
-        get :validate
-      end
     end
   end
 end
