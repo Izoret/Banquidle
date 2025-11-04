@@ -6,8 +6,15 @@ class GameController < ApplicationController
 
     @todays_person = TodaysPersonService.call
 
-    prev_guesses = session[:guesses] || []
-    @prev_people = Person.where(quickname: prev_guesses)
+    username = "<get this from discord user>"
+    unless username
+      throw "Username Discord introuvable."
+    end
+    u_sess = DailyGameStats.new username
+
+    prev_guesses = u_sess.stats[:guesses]
+
+    @prev_people = Person.where quickname: prev_guesses
     @prev_people = prev_guesses.map { |q| @prev_people.find { |p| p.quickname == q } }.compact.reverse
 
     @nb_tries = prev_guesses.length
@@ -16,9 +23,15 @@ class GameController < ApplicationController
   def submit_guess
     @todays_person = TodaysPersonService.call
 
-    prev_guesses = session[:guesses] || []
+    username = "<get this from discord user>"
+    unless username
+      throw "Username Discord introuvable."
+    end
+    u_sess = DailyGameStats.new username
 
-    @person = Person.find_by(quickname: params[:quickname])
+    prev_guesses = u_sess.stats[:guesses]
+
+    @person = Person.find_by quickname: params[:quickname]
 
     respond_to do |format|
       if @person.nil?
@@ -30,10 +43,9 @@ class GameController < ApplicationController
         format.turbo_stream { render turbo_stream: turbo_stream.replace("flash", partial: "layouts/flash") }
 
       else
-        prev_guesses << @person.quickname
-        session[:guesses] = prev_guesses
+        u_sess.add_guess @person.quickname
+        @nb_tries = prev_guesses.length + 1
 
-        @nb_tries = prev_guesses.length
         format.turbo_stream
       end
     end

@@ -1,11 +1,5 @@
 import {DiscordSDK} from "@discord/embedded-app-sdk"
 
-// Helper to get the CSRF token from the meta tags Rails adds
-function getCsrfToken() {
-    const tokenTag = document.querySelector('meta[name="csrf-token"]')
-    return tokenTag ? tokenTag.content : ""
-}
-
 function getDiscordClientId() {
     const clientIdTag = document.querySelector('meta[name="discord-client-id"]')
     if (!clientIdTag || !clientIdTag.content) {
@@ -46,7 +40,8 @@ async function setupDiscordSdk() {
     console.log("Discord SDK is authenticated!")
     console.log("Authenticated as:", auth.user.username)
 
-    document.dispatchEvent(new CustomEvent("discord:authenticated", {detail: {auth}}))
+    // maybe useful ?
+    // document.dispatchEvent(new CustomEvent("discord:authenticated", {detail: {auth}}))
 }
 
 document.addEventListener("DOMContentLoaded", () => {
