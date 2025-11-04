@@ -9,6 +9,11 @@
   <%= csrf_meta_tags %>
   <%= csp_meta_tag %>
 
+  <meta
+    name="discord-client-id"
+    content="<%= Rails.application.credentials.discord![:client_id] %>"
+    />
+
   <%= yield :head %>
 
   <%# Enable PWA manifest for installable apps (make sure to enable in config/routes.rb too!) %>

@@ -1,7 +1,7 @@
 require "active_support/core_ext/integer/time"
 
 Rails.application.configure do
-  config.hosts << "7c59bb97f4dfb9.lhr.life"
+  config.hosts << "070e795179ed72.lhr.life"
 
   # Settings specified here will take precedence over those in config/application.rb.
 

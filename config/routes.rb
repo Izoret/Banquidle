@@ -14,6 +14,10 @@ Rails.application.routes.draw do
 
   root "game#index"
 
+  namespace :api do
+    post "token", to: "token#create"
+  end
+
   resources :game, only: [ :index ] do
     collection do
       post :submit_guess
