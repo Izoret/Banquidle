@@ -11,8 +11,6 @@ class DailyGameStats
     @key = "daily_game:#{@date_string}:#{@username}"
   end
 
-  # Fetches the current stats for the user.
-  # Returns a hash with :guesses (array).
   def stats
     data = $redis.hgetall(@key)
 

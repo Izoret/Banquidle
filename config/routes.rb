@@ -12,7 +12,7 @@ Rails.application.routes.draw do
   # Defines the root path route ("/")
   # root "posts#index"
 
-  root "game#index"
+  root "loading#index"
 
   namespace :api do
     post "token", to: "token#create"

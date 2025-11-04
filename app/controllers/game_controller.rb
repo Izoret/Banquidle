@@ -6,11 +6,13 @@ class GameController < ApplicationController
 
     @todays_person = TodaysPersonService.call
 
-    username = "<get this from discord user>"
-    unless username
-      throw "Username Discord introuvable."
+    @username = params[:username]
+    unless @username.present?
+      redirect_to root_path, alert: "Discord authentication is required."
+      return
     end
-    u_sess = DailyGameStats.new username
+
+    u_sess = DailyGameStats.new @username
 
     prev_guesses = u_sess.stats[:guesses]
 
@@ -23,10 +25,8 @@ class GameController < ApplicationController
   def submit_guess
     @todays_person = TodaysPersonService.call
 
-    username = "<get this from discord user>"
-    unless username
-      throw "Username Discord introuvable."
-    end
+    username = params[:username]
+
     u_sess = DailyGameStats.new username
 
     prev_guesses = u_sess.stats[:guesses]

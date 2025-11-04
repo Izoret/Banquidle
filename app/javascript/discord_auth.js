@@ -38,10 +38,11 @@ async function setupDiscordSdk() {
     if (auth == null) throw new Error("Discord SDK: Authenticate command failed")
 
     console.log("Discord SDK is authenticated!")
-    console.log("Authenticated as:", auth.user.username)
 
-    // maybe useful ?
-    // document.dispatchEvent(new CustomEvent("discord:authenticated", {detail: {auth}}))
+    const username = encodeURIComponent(auth.user.username)
+    console.log("Authenticated as", auth.user.username, "!")
+
+    window.location.href = `/game?username=${username}`;
 }
 
 document.addEventListener("DOMContentLoaded", () => {
