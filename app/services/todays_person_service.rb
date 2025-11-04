@@ -1,5 +1,5 @@
 class TodaysPersonService
-  def self.call
+  def self.get_daily
     quicknames = Person.order(:quickname).pluck(:quickname)
     hex = Digest::MD5.hexdigest(Date.today.to_s)
     idx = hex.to_i(16) % quicknames.size

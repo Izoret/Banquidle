@@ -14,7 +14,7 @@ Rails.application.routes.draw do
 
   root "loading#index"
 
-  namespace :api do
+  namespace :discord do
     post "token", to: "token#create"
   end
 

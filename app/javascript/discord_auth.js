@@ -23,7 +23,7 @@ async function setupDiscordSdk() {
         client_id: discordClientId, response_type: "code", state: "", prompt: "none", scope: ["identify", "guilds"],
     })
 
-    const response = await fetch("/api/token", {
+    const response = await fetch("/discord/token", {
         method: "POST", headers: {
             "Content-Type": "application/json"
         }, body: JSON.stringify({
