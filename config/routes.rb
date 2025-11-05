@@ -12,12 +12,15 @@ Rails.application.routes.draw do
   # Defines the root path route ("/")
   # root "posts#index"
 
-  root "game#index"
+  root "loading#index"
 
-  post "retry", to: "main#clear_session_and_reload"
+  namespace :discord do
+    post "token", to: "token#create"
+  end
 
-  resources :game, only: [ :index ] do
+  resources :game do
     collection do
+      get :load_content
       post :submit_guess
     end
   end
