@@ -34,6 +34,8 @@ ActiveRecord::Schema[8.1].define(version: 2025_10_30_093823) do
 
   create_table "pro_situations", force: :cascade do |t|
     t.string "content"
+    t.string "translation_f", null: true
+    t.integer "parent_pro_id", null: true
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index [ "content" ], name: "index_pro_situations_on_content", unique: true

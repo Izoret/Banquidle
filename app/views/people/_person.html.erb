@@ -1,17 +1,25 @@
 <tr>
-  <td class="<%= person.first_name.content == todays.first_name.content ? 'correct' : 'incorrect' %>">
+  <td class="<%= person.first_name.id == todays.first_name.id ? 'correct' : 'incorrect' %>">
     <%= person.first_name.content %>
   </td>
-  <td class="<%= person.last_name.content == todays.last_name.content ? 'correct' : 'incorrect' %>">
+  <td class="<%= person.last_name.id == todays.last_name.id ? 'correct' : 'incorrect' %>">
     <%= person.last_name.content %>
   </td>
-  <td class="<%= person.sex.value == todays.sex.value ? 'correct' : 'incorrect' %>">
+  <td class="<%= person.sex.id == todays.sex.id ? 'correct' : 'incorrect' %>">
     <%= person.sex.value %>
   </td>
-  <td class="<%= person.pro_situation.content == todays.pro_situation.content ? 'correct' : 'incorrect' %>">
-    <%= person.pro_situation.content %>
+  <td class="<%=
+    if person.pro_situation.id == todays.pro_situation.id
+      'correct'
+    elsif person.pro_situation.parent_pro_id == todays.pro_situation.id
+      'partial'
+    else
+      'incorrect'
+    end
+  %>">
+    <%= (person.sex.value == 'F' and not person.pro_situation.translation_f.nil?) ? person.pro_situation.translation_f : person.pro_situation.content %>
   </td>
-  <td class="<%= person.location.content == todays.location.content ? 'correct' : 'incorrect' %>">
+  <td class="<%= person.location.id == todays.location.id ? 'correct' : 'incorrect' %>">
     <%= person.location.content %>
   </td>
 </tr>

@@ -51,15 +51,23 @@ tbody td {
 
 /* Cell Colors */
 tbody td.correct {
-  background-color: rgba(0, 255, 100, 0.1);
+  background-color: var(--correct-bg);
   color: var(--correct-answer);
   text-shadow: 0 0 8px var(--correct-answer);
   border-left: 1px solid var(--correct-answer); /* Add side borders */
   border-right: 1px solid var(--correct-answer);
 }
 
+tbody td.partial {
+  background-color: var(--partial-bg);
+  color: var(--partial-answer);
+  text-shadow: 0 0 8px var(--partial-answer);
+  border-left: 1px solid var(--partial-answer);
+  border-right: 1px solid var(--partial-answer);
+}
+
 tbody td.incorrect {
-  background-color: rgba(255, 77, 77, 0.1);
+  background-color: var(--wrong-bg);
   color: var(--wrong-answer);
   text-shadow: 0 0 8px var(--wrong-answer);
   border-left: 1px solid var(--wrong-answer);
