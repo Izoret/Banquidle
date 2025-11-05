@@ -1,7 +1,7 @@
 class GameController < ApplicationController
   skip_before_action :verify_authenticity_token, only: [ :submit_guess ]
 
-  def index
+  def load_content
     @people = Person.joins(:first_name, :last_name).select("quickname, first_names.content AS first_name_content, last_names.content AS last_name_content")
 
     @todays_person = TodaysPersonService.get_daily
@@ -20,6 +20,12 @@ class GameController < ApplicationController
     @prev_people = prev_guesses.map { |q| @prev_people.find { |p| p.quickname == q } }.compact.reverse
 
     @nb_tries = prev_guesses.length
+
+    respond_to do |format|
+      format.turbo_stream {
+        render turbo_stream: turbo_stream.replace("temp-loading", template: "game/index")
+      }
+    end
   end
 
   def submit_guess

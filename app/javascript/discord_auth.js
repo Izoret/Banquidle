@@ -1,5 +1,7 @@
 import {DiscordSDK} from "@discord/embedded-app-sdk"
 
+console.log("hello.")
+
 function getDiscordClientId() {
     const clientIdTag = document.querySelector('meta[name="discord-client-id"]')
     if (!clientIdTag || !clientIdTag.content) {
@@ -13,9 +15,11 @@ let auth
 
 async function setupDiscordSdk() {
     const discordClientId = getDiscordClientId()
+    console.log("id : " + discordClientId)
     if (!discordClientId) return
 
     const discordSdk = new DiscordSDK(discordClientId)
+    console.log(discordSdk)
     await discordSdk.ready()
     console.log("Discord SDK is ready")
 
@@ -42,7 +46,14 @@ async function setupDiscordSdk() {
     const username = encodeURIComponent(auth.user.username)
     console.log("Authenticated as", auth.user.username, "!")
 
-    window.location.href = `/game?username=${username}`;
+    const response_game = await fetch(`/game/load_content?username=${username}`, {
+        headers: {
+            "Accept": "text/vnd.turbo-stream.html"
+        }
+    })
+
+    const turboStream = await response_game.text()
+    Turbo.renderStreamMessage(turboStream)
 }
 
 document.addEventListener("DOMContentLoaded", () => {
