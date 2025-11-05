@@ -38,4 +38,5 @@
 /config/*.key
 
 /node_modules/
+/vendor/
 
