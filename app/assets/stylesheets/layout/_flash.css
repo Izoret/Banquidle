@@ -17,16 +17,22 @@
 
 .flash.notice,
 .flash.success {
-  background-color: rgba(0, 255, 100, 0.1);
+  background-color: var(--correct-bg);
   color: var(--correct-answer);
   border-color: var(--correct-answer);
   box-shadow: 0 0 10px var(--correct-answer);
   text-shadow: 0 0 5px var(--correct-answer);
 }
 
-.flash.alert,
+.flash.alert {
+  background-color: var(--partial-bg);
+  color: var(--partial-answer);
+  border-color: var(--partial-answer);
+  box-shadow: 0 0 10px var(--partial-answer);
+  text-shadow: 0 0 5px var(--partial-answer);
+}
 .flash.error {
-  background-color: rgba(255, 77, 77, 0.1);
+  background-color: var(--wrong-bg);
   color: var(--wrong-answer);
   border-color: var(--wrong-answer);
   box-shadow: 0 0 10px var(--wrong-answer);
