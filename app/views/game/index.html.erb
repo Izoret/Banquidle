@@ -1,7 +1,3 @@
-<h1>Banquidle</h1>
-
-<%= render "layouts/flash" %>
-
 <%= form_with url: submit_guess_game_index_path, data: { turbo_stream: true }, method: :post, id: "guess-form" do |f| %>
   <%= f.label :quickname, "Choisis une personne :" %>
   <%= f.select :quickname,

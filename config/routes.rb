@@ -21,12 +21,4 @@ Rails.application.routes.draw do
       post :submit_guess
     end
   end
-
-  namespace :api do
-    resources :people, only: [ :index ] do
-      collection do
-        get :validate
-      end
-    end
-  end
 end

@@ -7,7 +7,7 @@ class GameController < ApplicationController
     if session[:today]
       @todays_person = Person.find_by(quickname: session[:today])
     else
-      @todays_person = TodaysPersonService.call
+      @todays_person = TodaysPersonService.get_daily
       session[:today] = @todays_person.quickname
     end
 
@@ -19,7 +19,7 @@ class GameController < ApplicationController
   end
 
   def submit_guess
-    @todays_person = TodaysPersonService.call
+    @todays_person = TodaysPersonService.get_daily
 
     prev_guesses = session[:guesses] || []
 
