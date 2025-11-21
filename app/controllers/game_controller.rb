@@ -1,29 +1,43 @@
 class GameController < ApplicationController
   skip_before_action :verify_authenticity_token, only: [ :submit_guess ]
 
-  def index
-    @people = Person.joins(:first_name, :last_name).select("quickname, first_names.content AS first_name_content, last_names.content AS last_name_content")
+  def load_content
+    @people = Person.joins(:first_name, :last_name).select("quickname, first_names.content AS first_name_content, last_names.content AS last_name_content").order!(:first_name_content)
 
-    if session[:today]
-      @todays_person = Person.find_by(quickname: session[:today])
-    else
-      @todays_person = TodaysPersonService.get_daily
-      session[:today] = @todays_person.quickname
+    @todays_person = TodaysPersonService.get_daily
+
+    @username = params[:username]
+    unless @username.present?
+      redirect_to root_path, alert: "Discord authentication is required."
+      return
     end
 
-    prev_guesses = session[:guesses] || []
-    @prev_people = Person.where(quickname: prev_guesses)
+    u_sess = DailyGameStats.new @username
+
+    prev_guesses = u_sess.stats[:guesses]
+
+    @prev_people = Person.where quickname: prev_guesses
     @prev_people = prev_guesses.map { |q| @prev_people.find { |p| p.quickname == q } }.compact.reverse
 
     @nb_tries = prev_guesses.length
+
+    respond_to do |format|
+      format.turbo_stream {
+        render turbo_stream: turbo_stream.replace("temp-loading", template: "game/index")
+      }
+    end
   end
 
   def submit_guess
     @todays_person = TodaysPersonService.get_daily
 
-    prev_guesses = session[:guesses] || []
+    username = params[:username]
 
-    @person = Person.find_by(quickname: params[:quickname])
+    u_sess = DailyGameStats.new username
+
+    prev_guesses = u_sess.stats[:guesses]
+
+    @person = Person.find_by quickname: params[:quickname]
 
     respond_to do |format|
       if @person.nil?
@@ -35,10 +49,9 @@ class GameController < ApplicationController
         format.turbo_stream { render turbo_stream: turbo_stream.replace("flash", partial: "layouts/flash") }
 
       else
-        prev_guesses << @person.quickname
-        session[:guesses] = prev_guesses
+        u_sess.add_guess @person.quickname
+        @nb_tries = prev_guesses.length + 1
 
-        @nb_tries = prev_guesses.length
         format.turbo_stream
       end
     end
