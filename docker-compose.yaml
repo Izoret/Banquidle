@@ -1,0 +1,35 @@
+version: "3.9"
+
+services:
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    image: rails-dev
+    container_name: rails-dev
+    ports:
+      - "3000:3000"
+    volumes:
+      - .:/rails
+    environment:
+      RAILS_ENV: development
+    networks:
+      - backend
+    command: bin/rails server -b 0.0.0.0
+    stdin_open: true
+    tty: true
+    depends_on:
+      - redis
+  
+  redis:
+    image: redis@sha256:0e9ce48d0db4865e805389edcb078996322e85c5216834d1f55c99b79e4aebc5
+    volumes:
+      - redis_data:/data
+    networks:
+      - backend
+
+volumes:
+  redis_data:
+
+networks:
+  backend:
