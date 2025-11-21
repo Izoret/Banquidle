@@ -1,7 +1,7 @@
 require "active_support/core_ext/integer/time"
 
 Rails.application.configure do
-  config.hosts << "a5ab9199bc760c.lhr.life"
+  config.hosts << "antlia.dopolytech.fr:3000"
 
   # Settings specified here will take precedence over those in config/application.rb.
 

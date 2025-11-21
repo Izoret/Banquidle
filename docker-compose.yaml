@@ -5,8 +5,8 @@ services:
     build:
       context: .
       dockerfile: Dockerfile.dev
-    image: rails-dev
-    container_name: rails-dev
+    image: banquidle-dev
+    container_name: banquidle-dev
     ports:
       - "3000:3000"
     volumes:
