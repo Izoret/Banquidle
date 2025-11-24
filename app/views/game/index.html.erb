@@ -4,6 +4,7 @@
                options_for_select(@people.map { |p| [ "#{p.first_name_content} #{p.last_name_content}", p.quickname ] }),
                { include_blank: "----" } %>
 
+  <%= f.hidden_field :username, value: @username %>
   <%= f.submit "Envoyer" %>
 <% end %>
 
@@ -29,8 +30,6 @@
     <%= render partial: "game/congratulations", locals: { nb_tries: @nb_tries } %>
   <% end %>
 </div>
-
-<%= button_to 'Try Again', retry_path, method: :post %>
 
 <script>
     document.addEventListener("turbo:submit-end", function (event) {

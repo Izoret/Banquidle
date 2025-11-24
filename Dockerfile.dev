@@ -1,0 +1,26 @@
+FROM ruby:3.4.5-slim
+
+WORKDIR /rails
+
+RUN apt-get update -qq && \
+    apt-get install --no-install-recommends -y \
+    build-essential git libvips libyaml-dev sqlite3 npm && \
+    rm -rf /var/lib/apt/lists /var/cache/apt/archives
+
+COPY Gemfile Gemfile.lock ./
+COPY package.json package-lock.json ./
+
+RUN bundle install
+RUN npm install
+
+COPY . .
+
+ENV RAILS_ENV=development
+EXPOSE 3000
+
+COPY entrypoint.sh /usr/bin/rails.sh
+RUN chmod +x /usr/bin/rails.sh
+
+ENTRYPOINT ["rails.sh"]
+CMD ["bin/rails", "server", "-b", "0.0.0.0"]
+

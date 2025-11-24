@@ -23,3 +23,12 @@ Person.create(
   pro_situation: etu,
   location: paris
 )
+
+Person.create(
+  quickname: "person2",
+  first_name: FirstName.find_or_create_by!(content: "Raph"),
+  last_name: LastName.find_or_create_by!(content: "Gen"),
+  sex: m,
+  pro_situation: etu,
+  location: paris
+)
