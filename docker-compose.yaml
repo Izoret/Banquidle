@@ -5,10 +5,10 @@ services:
     build:
       context: .
       dockerfile: Dockerfile.dev
-    image: banquidle-dev
-    container_name: banquidle-dev
+    image: banquidle-activity
+    container_name: banquidle-activity
     ports:
-      - "3000:3000"
+      - "3001:3000"
     volumes:
       - .:/rails
     environment:
