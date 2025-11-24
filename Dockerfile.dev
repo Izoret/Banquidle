@@ -18,8 +18,9 @@ COPY . .
 ENV RAILS_ENV=development
 EXPOSE 3000
 
-COPY entrypoint.sh /usr/bin/entrypoint.sh
-RUN chmod +x /usr/bin/entrypoint.sh
+COPY entrypoint.sh /usr/bin/rails.sh
+RUN chmod +x /usr/bin/rails.sh
 
-CMD ["/usr/bin/entrypoint.sh"]
+ENTRYPOINT ["rails.sh"]
+CMD ["bin/rails", "server", "-b", "0.0.0.0"]
 
