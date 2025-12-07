@@ -16,9 +16,27 @@ f = Sex.find_or_create_by!(value: "F")
 paris = Location.find_or_create_by!(content: "Paris")
 
 Person.create(
+  quickname: "fillon",
+  first_name: FirstName.find_or_create_by!(content: "François"),
+  last_name: LastName.find_or_create_by!(content: "Fillon"),
+  sex: m,
+  pro_situation: etu,
+  location: paris
+)
+
+Person.create(
+  quickname: "norman",
+  first_name: FirstName.find_or_create_by!(content: "Test"),
+  last_name: LastName.find_or_create_by!(content: "François"),
+  sex: m,
+  pro_situation: etu,
+  location: paris
+)
+
+Person.create(
   quickname: "test",
-  first_name: FirstName.find_or_create_by!(content: "testP"),
-  last_name: LastName.find_or_create_by!(content: "testN"),
+  first_name: FirstName.find_or_create_by!(content: "François"),
+  last_name: LastName.find_or_create_by!(content: "Bayrou"),
   sex: m,
   pro_situation: etu,
   location: paris

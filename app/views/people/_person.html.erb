@@ -1,8 +1,24 @@
 <tr>
-  <td class="<%= person.first_name.id == todays.first_name.id ? 'correct' : 'incorrect' %>">
+  <td class="<%=
+    if person.first_name.id == todays.first_name.id
+      'correct'
+    elsif person.first_name.content == todays.last_name.content
+      'partial'
+    else
+      'incorrect'
+    end
+  %>">
     <%= person.first_name.content %>
   </td>
-  <td class="<%= person.last_name.id == todays.last_name.id ? 'correct' : 'incorrect' %>">
+  <td class="<%=
+    if person.last_name.id == todays.last_name.id
+      'correct'
+    elsif person.last_name.content == todays.first_name.content
+      'partial'
+    else
+      'incorrect'
+    end
+  %>">
     <%= person.last_name.content %>
   </td>
   <td class="<%= person.sex.id == todays.sex.id ? 'correct' : 'incorrect' %>">
