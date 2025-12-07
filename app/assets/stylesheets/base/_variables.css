@@ -9,11 +9,11 @@
 
     /* Status colors */
     --correct-answer: #00ff64;
-    --correct-bg: rgba(0, 255, 100, 0.1);
-    --partial-answer: #b0ca0c;
-    --partial-bg: rgba(117, 255, 0, 0.1);
+    --correct-bg: rgba(0, 255, 100, 0.15);
+    --partial-answer: #dbf927;
+    --partial-bg: rgba(125, 125, 0, 0.1);
     --wrong-answer: #ff4d4d;
-    --wrong-bg: rgba(230, 60, 60, 0.1);
+    --wrong-bg: rgba(113, 0, 0, 0.1);
 
     /* Backgrounds */
     --bg-color: #0d0c1d; /* Deep space blue */

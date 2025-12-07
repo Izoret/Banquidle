@@ -6,4 +6,8 @@ class TodaysPersonService
     selected_quickname = quicknames[idx]
     Person.find_by(quickname: selected_quickname)
   end
+
+  def self.get_determinist
+    Person.find_by(quickname: "fillon")
+  end
 end
