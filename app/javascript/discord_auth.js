@@ -53,7 +53,9 @@ document.addEventListener("DOMContentLoaded", async () => {
     const auth = await setupDiscordSdk()
         .catch(err => console.error("Discord SDK setup failed:", err))
 
-    const username = auth ? auth.user.username : "test"
+    const username = auth ? auth.user.username : new URLSearchParams(window.location.search).get('username')
+
+    if (!username) return
 
     const response_game = await fetch(`/game/load_content?username=${username}`, {
         headers: {
