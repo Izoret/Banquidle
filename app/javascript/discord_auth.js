@@ -44,7 +44,7 @@ async function setupDiscordSdk() {
     console.log("Discord SDK is authenticated!")
 
     const username = encodeURIComponent(auth.user.username)
-    console.log("Authenticated as", auth.user.username, "!")
+    console.log("Authenticated as", username, "!")
 
     return auth
 }
@@ -53,7 +53,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     const auth = await setupDiscordSdk()
         .catch(err => console.error("Discord SDK setup failed:", err))
 
-    const username = auth ? auth.user.username : new URLSearchParams(window.location.search).get('username')
+    const username = auth ? encodeURIComponent(auth.user.username) : new URLSearchParams(window.location.search).get('username')
 
     if (!username) return
 

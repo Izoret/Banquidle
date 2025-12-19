@@ -1,7 +1,7 @@
 require "active_support/core_ext/integer/time"
 
 Rails.application.configure do
-  config.hosts << "banquidle-activity.antlia.dopolytech.fr"
+  config.hosts << "banquidle-webapp.antlia.dopolytech.fr"
 
   config.hosts << "antlia.dopolytech.fr"
   # Settings specified here will take precedence over those in config/application.rb.

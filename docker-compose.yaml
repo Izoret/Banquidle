@@ -5,8 +5,8 @@ services:
     build:
       context: .
       dockerfile: Dockerfile.dev
-    image: banquidle-activity
-    container_name: banquidle-activity
+    image: banquidle-webapp
+    container_name: banquidle-webapp
     ports:
       - "3000:3000"
     volumes:
