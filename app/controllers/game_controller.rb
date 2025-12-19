@@ -8,8 +8,7 @@ class GameController < ApplicationController
 
     @username = params[:username]
     unless @username.present?
-      redirect_to root_path, alert: "Discord authentication is required."
-      return
+      redirect_to root_path, alert: "Authentication is required."
     end
 
     u_sess = DailyGameStats.new @username

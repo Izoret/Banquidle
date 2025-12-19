@@ -18,7 +18,7 @@ Rails.application.routes.draw do
     post "token", to: "token#create"
   end
 
-  resources :game do
+  resources :game, only: [] do
     collection do
       get :load_content
       post :submit_guess

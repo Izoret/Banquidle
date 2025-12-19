@@ -46,6 +46,15 @@ async function setupDiscordSdk() {
     const username = encodeURIComponent(auth.user.username)
     console.log("Authenticated as", auth.user.username, "!")
 
+    return auth
+}
+
+document.addEventListener("DOMContentLoaded", async () => {
+    const auth = await setupDiscordSdk()
+        .catch(err => console.error("Discord SDK setup failed:", err))
+
+    const username = auth ? auth.user.username : "test"
+
     const response_game = await fetch(`/game/load_content?username=${username}`, {
         headers: {
             "Accept": "text/vnd.turbo-stream.html"
@@ -54,10 +63,5 @@ async function setupDiscordSdk() {
 
     const turboStream = await response_game.text()
     Turbo.renderStreamMessage(turboStream)
-}
-
-document.addEventListener("DOMContentLoaded", () => {
-    setupDiscordSdk()
-        .catch(err => console.error("Discord SDK setup failed:", err))
 })
 
