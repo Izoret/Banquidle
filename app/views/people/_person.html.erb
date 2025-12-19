@@ -27,7 +27,7 @@
   <td class="<%=
     if person.pro_situation.id == todays.pro_situation.id
       'correct'
-    elsif person.pro_situation.parent_pro_id == todays.pro_situation.id
+    elsif todays.pro_situation.in? person.pro_situation.get_related
       'partial'
     else
       'incorrect'

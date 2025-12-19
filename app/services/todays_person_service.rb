@@ -8,6 +8,6 @@ class TodaysPersonService
   end
 
   def self.get_determinist
-    Person.find_by(quickname: "fillon")
+    Person.find_by(quickname: "zozo")
   end
 end
