@@ -4,7 +4,7 @@ class GameController < ApplicationController
   def load_content
     @people = Person.joins(:first_name, :last_name).select("quickname, first_names.content AS first_name_content, last_names.content AS last_name_content").order!(:first_name_content)
 
-    @todays_person = TodaysPersonService.get_determinist
+    @todays_person = TodaysPersonService.get_daily
 
     @username = params[:username]
     unless @username.present?
@@ -28,7 +28,7 @@ class GameController < ApplicationController
   end
 
   def submit_guess
-    @todays_person = TodaysPersonService.get_determinist
+    @todays_person = TodaysPersonService.get_daily
 
     username = params[:username]
 
