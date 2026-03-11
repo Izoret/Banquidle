@@ -1,44 +1,10 @@
 <tr>
-  <td class="<%=
-    if person.first_name.id == todays.first_name.id
-      'correct'
-    elsif person.first_name.content == todays.last_name.content
-      'partial'
-    else
-      'incorrect'
-    end
-  %>">
-    <%= person.first_name.content %>
-  </td>
-  <td class="<%=
-    if person.last_name.id == todays.last_name.id
-      'correct'
-    elsif person.last_name.content == todays.first_name.content
-      'partial'
-    else
-      'incorrect'
-    end
-  %>">
-    <%= person.last_name.content %>
-  </td>
-  <td class="<%= person.sex.id == todays.sex.id ? 'correct' : 'incorrect' %>">
-    <%= person.sex.value %>
-  </td>
-  <td class="<%= person.location.id == todays.location.id ? 'correct' : 'incorrect' %>">
-    <%= person.location.content %>
-  </td>
-  <td class="<%=
-    if person.pro_situation.id == todays.pro_situation.id
-      'correct'
-    elsif todays.pro_situation.in? person.pro_situation.get_related
-      'partial'
-    else
-      'incorrect'
-    end
-  %>">
-    <%= person.pro_situation.gendered_from person.sex %>
-  </td>
-  <td class="<%= person.age_group.id == todays.age_group.id ? 'correct' : 'incorrect' %>">
-    <%= person.age_group.gendered_from person.sex %>
-  </td>
+  <% RowAttribute.all.each do |attr|
+    person_attr = person.content(attr)
+    todays_attr = todays.content(attr)
+  %>
+    <td class="<%= person_attr == todays_attr ? 'correct' : 'incorrect' %>">
+      <%= person_attr&.value || "?" %>
+    </td>
+  <% end %>
 </tr>

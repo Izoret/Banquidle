@@ -1,2 +1,0 @@
-class ProSituationLink < ApplicationRecord
-end

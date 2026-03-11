@@ -16,7 +16,7 @@ class TodaysPersonService
   end
 
   def self.get_determinist
-    Person.find_by(quickname: "zozo")
+    Person.find_by(quickname: "Louane")
   end
 
   private

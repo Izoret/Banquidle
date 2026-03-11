@@ -8,52 +8,32 @@
 #     MovieGenre.find_or_create_by!(name: genre_name)
 #   end
 
-etu = ProSituation.find_or_create_by!(name: "Étudiant")
+prenom = RowAttribute.create!(name: "Prénom")
+nom = RowAttribute.create!(name: "Nom")
+sex = RowAttribute.create!(name: "Sexe")
 
-m = Sex.find_or_create_by!(value: "M")
-f = Sex.find_or_create_by!(value: "F")
+name_unknown = AttributeContent.create!(row_attribute: nom, value: "?")
 
-enfant = AgeGroup.find_or_create_by!(name: "Enfant")
-old = AgeGroup.find_or_create_by!(name: "Vintage")
+male = AttributeContent.create!(row_attribute: sex, value: "M")
+female = AttributeContent.create!(row_attribute: sex, value: "F")
 
-paris = Location.find_or_create_by!(content: "Paris")
+bayrou = Person.create(quickname: "Bayrou")
+bayrou.attribute_contents << [
+  AttributeContent.create_or_find_by!(row_attribute: prenom, value: "François"),
+  AttributeContent.create_or_find_by!(row_attribute: nom, value: "Bayrou"),
+  male
+]
 
-=begin
-Person.create(
-  quickname: "fillon",
-  first_name: FirstName.find_or_create_by!(content: "François"),
-  last_name: LastName.find_or_create_by!(content: "Fillon"),
-  sex: m,
-  pro_situation: etu,
-  location: paris
-)
-=end
+fillon = Person.create(quickname: "Fillon?")
+fillon.attribute_contents << [
+  AttributeContent.create_or_find_by!(row_attribute: prenom, value: "François"),
+  name_unknown,
+  male
+]
 
-Person.create(
-  quickname: "norman",
-  first_name: FirstName.find_or_create_by!(content: "Test"),
-  last_name: LastName.find_or_create_by!(content: "François"),
-  sex: m,
-  pro_situation: etu,
-  location: paris,
-  age_group: enfant
-)
-=begin
-Person.create(
-  quickname: "test",
-  first_name: FirstName.find_or_create_by!(content: "François"),
-  last_name: LastName.find_or_create_by!(content: "Bayrou"),
-  sex: m,
-  pro_situation: etu,
-  location: paris
-)
-=end
-Person.create(
-  quickname: "person2",
-  first_name: FirstName.find_or_create_by!(content: "Raph"),
-  last_name: LastName.find_or_create_by!(content: "Gen"),
-  sex: m,
-  pro_situation: etu,
-  location: paris,
-  age_group: old
-)
+louane = Person.create(quickname: "Louane")
+louane.attribute_contents << [
+  AttributeContent.create_or_find_by!(row_attribute: prenom, value: "Louane"),
+  name_unknown,
+  female
+]

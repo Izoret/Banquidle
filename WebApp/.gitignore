@@ -10,7 +10,7 @@
 # Ignore all environment files.
 /.env*
 
-/db/seeds/private.rb
+/db/seeds/custom.rb
 
 # Ignore all logfiles and tempfiles.
 /log/*

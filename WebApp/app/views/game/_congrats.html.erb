@@ -1,5 +1,5 @@
 <% if todays.is_birthday? %>
-  <h3>BON ANNIVERSAIRE <%= todays.first_name.content.upcase %> !!!</h3>
+  <h3>BON ANNIVERSAIRE <%= todays.quickname.upcase %> !!!</h3>
 <% else %>
   <% if nb_tries == 1 %>
     <h3>Lucky !</h3>

@@ -1,2 +1,0 @@
-class AgeGroup < RecordWithGenderedValue
-end

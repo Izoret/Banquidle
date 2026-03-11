@@ -9,10 +9,10 @@
 #   end
 
 default = Rails.root.join('db', 'seeds', 'base.rb')
-private = Rails.root.join('db', 'seeds', 'private.rb')
+custom = Rails.root.join('db', 'seeds', 'custom.rb')
 
-if File.exist? private
-  load private
+if File.exist? custom
+  load custom
 else
   load default
 end
