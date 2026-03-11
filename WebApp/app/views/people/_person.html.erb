@@ -3,7 +3,15 @@
     person_attribute_content = person.content_for(attribute)
     todays_attribute_content = todays.content_for(attribute)
   %>
-    <td class="<%= person_attribute_content == todays_attribute_content ? 'correct' : 'incorrect' %>">
+    <td class="<%=
+      if person_attribute_content == todays_attribute_content
+        'correct'
+      elsif todays_attribute_content&.get_linked&.include? person_attribute_content
+        'partial'
+      else
+        'incorrect'
+      end
+    %>">
       <%= person_attribute_content&.maybe_genderize_for(person) || "?" %>
     </td>
   <% end %>

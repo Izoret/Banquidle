@@ -31,6 +31,11 @@ ActiveRecord::Schema[8.1].define(version: 2025_12_19_123512) do
     t.integer "column_id", null: false
   end
 
+  create_table "linked_attribute_contents", force: :cascade do |t|
+    t.integer "attribute_content_1", null: false
+    t.integer "attribute_content_2", null: false
+  end
+
   create_table "columns", force: :cascade do |t|
     t.string "name", null: false
   end

@@ -1,0 +1,2 @@
+class LinkedAttributeContents < ApplicationRecord
+end

@@ -13,4 +13,12 @@ class AttributeContent < ApplicationRecord
     sex = person.content_for(sex_col)&.value
     sex == "F" ? translation_f : value
   end
+
+  def get_linked
+    linked_ids =
+      LinkedAttributeContents.where(attribute_content_1: self.id).pluck(:attribute_content_2) +
+      LinkedAttributeContents.where(attribute_content_2: self.id).pluck(:attribute_content_1)
+
+    AttributeContent.where(id: linked_ids.uniq)
+  end
 end
