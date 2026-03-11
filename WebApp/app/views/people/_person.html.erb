@@ -1,10 +1,10 @@
 <tr>
-  <% RowAttribute.all.each do |attr|
-    person_attr = person.content(attr)
-    todays_attr = todays.content(attr)
+  <% Column.all.each do |attribute|
+    person_attribute_content = person.content_for(attribute)
+    todays_attribute_content = todays.content_for(attribute)
   %>
-    <td class="<%= person_attr == todays_attr ? 'correct' : 'incorrect' %>">
-      <%= person_attr&.value || "?" %>
+    <td class="<%= person_attribute_content == todays_attribute_content ? 'correct' : 'incorrect' %>">
+      <%= person_attribute_content&.maybe_genderize_for(person) || "?" %>
     </td>
   <% end %>
 </tr>

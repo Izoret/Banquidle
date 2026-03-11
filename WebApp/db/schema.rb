@@ -26,13 +26,14 @@ ActiveRecord::Schema[8.1].define(version: 2025_12_19_123512) do
 
   create_table "attribute_contents", force: :cascade do |t|
     t.string "value", null: false
+    t.string "translation_f", null: true
 
-    t.integer "row_attribute_id", null: false
+    t.integer "column_id", null: false
   end
 
-  create_table "row_attributes", force: :cascade do |t|
+  create_table "columns", force: :cascade do |t|
     t.string "name", null: false
   end
 
-  add_foreign_key "attribute_contents", "row_attributes"
+  add_foreign_key "attribute_contents", "columns"
 end
