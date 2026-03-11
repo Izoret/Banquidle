@@ -1,7 +1,5 @@
 class TodaysPersonService
   def self.get_daily
-    #    return get_determinist
-
     if (person = born_today)
       return person
     end

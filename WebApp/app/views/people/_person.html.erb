@@ -6,7 +6,8 @@
     <td class="<%=
       if person_attribute_content == todays_attribute_content
         'correct'
-      elsif todays_attribute_content&.get_linked&.include? person_attribute_content
+      elsif (todays_attribute_content&.get_linked&.include? person_attribute_content) or
+            (attribute.linked_column and person_attribute_content&.value == todays.content_for(attribute.linked_column)&.value)
         'partial'
       else
         'incorrect'
