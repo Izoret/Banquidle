@@ -1,5 +1,5 @@
 body {
-    max-width: 600px;
+    max-width: 850px;
     margin: 0 auto;
     padding: var(--spacing-md);
 }
@@ -17,23 +17,23 @@ h1 {
 }
 
 #congrats-div {
-    margin-top: var(--spacing-xl);
+    margin: var(--spacing-xl) 0 var(--spacing-xl) 0;
     text-align: center;
-}
 
-#congrats-div h3 {
-    background: transparent;
-    color: var(--correct-answer);
-    padding: var(--spacing-xl);
-    border: 1px solid var(--correct-answer);
-    border-radius: var(--radius-lg);
-    font-size: 1.25rem;
-    font-weight: 700;
-    box-shadow: 0 0 10px var(--correct-answer), 0 0 20px var(--correct-answer) inset;
-    animation: celebrate 0.5s ease-out;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    text-shadow: 0 0 8px var(--correct-answer);
+    h3 {
+        background: transparent;
+        color: var(--correct-answer);
+        padding: var(--spacing-xl);
+        border: 1px solid var(--correct-answer);
+        border-radius: var(--radius-lg);
+        font-size: 1.25rem;
+        font-weight: 700;
+        box-shadow: 0 0 10px var(--correct-answer), 0 0 20px var(--correct-answer) inset;
+        animation: celebrate 0.5s ease-out;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        text-shadow: 0 0 8px var(--correct-answer);
+    }
 }
 
 @keyframes celebrate {

@@ -15,11 +15,11 @@
 <div class="table-container">
   <table>
     <thead>
-    <tr>
-      <% Column.all.each do |column| %>
-        <th><%= column.name %></th>
-      <% end %>
-    </tr>
+      <tr>
+        <% Column.all.each do |column| %>
+          <th><%= column.name %></th>
+        <% end %>
+      </tr>
     </thead>
     <tbody id="guesses">
     <%= render partial: "people/person",
