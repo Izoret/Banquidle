@@ -2,9 +2,7 @@ require "active_support/core_ext/integer/time"
 
 Rails.application.configure do
   config.hosts << "webapp:3000"
-  config.hosts << "localhost:3001"
-  config.hosts << "127.0.0.1:3001"
-  config.hosts << "banquidle-webapp.antlia.dopolytech.fr"
+  config.hosts << "banquidle.izoret.fr"
 
   # Settings specified here will take precedence over those in config/application.rb.
 
