@@ -9,6 +9,6 @@ export const CONFIG = {
     GUILD_ID: process.env.GUILD_ID,
     TEXT_CHANNEL_ID: process.env.TEXT_CHANNEL_ID,
     PATCH_NOTES_DIR: path.resolve('res/patches'),
-    CRON_SCHEDULE: '43 09 * * *',
+    CRON_SCHEDULE: '12 09 * * *',
     TIMEZONE: 'Europe/Paris'
 }
