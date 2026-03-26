@@ -15,7 +15,7 @@ function formatTriesMessage(data) {
 
     const podiumEntries = sortedEntries.slice(0, 3).map((player, index) => {
         const label = player.tries === 1 ? '1st try !' : `${player.tries} essais`
-        return `${podiumEmojis[index]} <${player.id}> : ${label}`
+        return `${podiumEmojis[index]} <@${player.id}> : ${label}`
     })
 
     messages.push(...podiumEntries)
@@ -23,7 +23,7 @@ function formatTriesMessage(data) {
     if (others.length > 0) {
         messages.push(`\n**Autrui** \\\\`)
         const otherEntries = others.map(player => {
-            return `• <${player.id}> : ${player.tries} essais`
+            return `• <@${player.id}> : ${player.tries} essais`
         })
         messages.push(...otherEntries)
     }
