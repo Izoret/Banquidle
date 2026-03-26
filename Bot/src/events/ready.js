@@ -1,7 +1,7 @@
 import cron from 'node-cron'
 import {CONFIG} from '../config.js'
 import {sendBanquidleInvite} from '../utils/messageUtils.js'
-import {getStringForYesterdays} from "../services/yesterdaysService.js";
+import {fetchDailyTries} from "../services/apiService.js";
 
 export async function handleReady(client) {
     console.log(`✅ Bot is ready! Logged in as ${client.user.tag}`)
@@ -9,9 +9,9 @@ export async function handleReady(client) {
     cron.schedule(CONFIG.CRON_SCHEDULE, async () => {
         console.log('> running daily..')
 
-        const mentionString = await getStringForYesterdays()
+        const data = await fetchDailyTries()
 
-        await sendBanquidleInvite(client, null, mentionString)
+        await sendBanquidleInvite(client, null, data)
     }, {
         timezone: CONFIG.TIMEZONE
     })
