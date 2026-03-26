@@ -1,5 +1,5 @@
 import { ActionRowBuilder, ButtonBuilder, ButtonStyle } from 'discord.js'
-import { CONFIG } from '../config.js'
+import { C } from '../config.js'
 
 function formatTriesMessage(data) {
     if (!data || Object.keys(data).length === 0) return []
@@ -39,8 +39,8 @@ export async function sendBanquidleInvite(client, targetMessage = null, data = {
         if (targetMessage) {
             channel = targetMessage.channel
         } else {
-            const guild = await client.guilds.fetch(CONFIG.GUILD_ID)
-            channel = guild.channels.cache.get(CONFIG.TEXT_CHANNEL_ID)
+            const guild = await client.guilds.fetch(C.GUILD_ID)
+            channel = guild.channels.cache.get(C.TEXT_CHANNEL_ID)
         }
 
         if (!channel?.isTextBased()) return

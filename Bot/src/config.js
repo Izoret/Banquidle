@@ -3,12 +3,12 @@ import path from 'path'
 
 dotenv.config()
 
-export const CONFIG = {
+export const C = {
     TOKEN: process.env.TOKEN,
     ACTIVITY_ID: process.env.ACTIVITY_ID,
     GUILD_ID: process.env.GUILD_ID,
     TEXT_CHANNEL_ID: process.env.TEXT_CHANNEL_ID,
     PATCH_NOTES_DIR: path.resolve('res/patches'),
-    CRON_SCHEDULE: '12 09 * * *',
+    CRON_SCHEDULE_START: '12 08 * * *',
     TIMEZONE: 'Europe/Paris'
 }

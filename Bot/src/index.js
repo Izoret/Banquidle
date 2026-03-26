@@ -1,5 +1,5 @@
 import { Client, GatewayIntentBits, Events } from 'discord.js'
-import { CONFIG } from './config.js'
+import { C } from './config.js'
 import { handleReady } from './events/ready.js'
 import { handleMessageCreate } from './events/messageCreate.js'
 import { handleInteractionCreate } from './events/interactionCreate.js'
@@ -16,4 +16,4 @@ client.once(Events.ClientReady, (c) => handleReady(c))
 client.on(Events.MessageCreate, (message) => handleMessageCreate(message, client))
 client.on(Events.InteractionCreate, (interaction) => handleInteractionCreate(interaction, client))
 
-client.login(CONFIG.TOKEN)
+client.login(C.TOKEN)
