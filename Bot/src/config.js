@@ -10,5 +10,6 @@ export const C = {
     TEXT_CHANNEL_ID: process.env.TEXT_CHANNEL_ID,
     PATCH_NOTES_DIR: path.resolve('res/patches'),
     CRON_SCHEDULE_START: '12 08 * * *',
+    CRON_RANDOM_WAIT_MAX_MINUTES: 89,
     TIMEZONE: 'Europe/Paris'
 }

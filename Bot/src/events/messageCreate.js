@@ -1,6 +1,6 @@
 import {sendBanquidleInvite} from '../utils/messageUtils.js'
 import {getLatestPatchNote} from '../services/patchesService.js'
-import {fetchDailyTries} from "../services/apiService.js";
+import {fetchDailyTries} from "../services/apiService.js"
 
 export async function handleMessageCreate(message, client) {
     if (message.author.bot) return
