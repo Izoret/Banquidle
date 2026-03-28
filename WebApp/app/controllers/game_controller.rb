@@ -39,7 +39,7 @@ class GameController < ApplicationController
         format.turbo_stream { render turbo_stream: turbo_stream.replace("flash", partial: "layouts/flash") }
 
       else
-        GameStats.add_guess_for(@user_id, @person.quickname)
+        GameStats.add_guess(@user_id, @person.quickname)
         @nb_tries = guesses.length + 1
 
         format.turbo_stream
