@@ -1,7 +1,7 @@
 redis_url = "redis://redis:6379/0"
 $redis = Redis.new(url: redis_url)
 
-unless ENV['RAILS_ASSETS_PRECOMPILE'] || ENV['SECRET_KEY_BASE_DUMMY']
+unless ENV["RAILS_ASSETS_PRECOMPILE"] || ENV["SECRET_KEY_BASE_DUMMY"]
   begin
     puts "Connecting to Redis at #{redis_url}..."
     $redis.ping

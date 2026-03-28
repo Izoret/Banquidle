@@ -5,14 +5,12 @@ class GameController < ApplicationController
   def load_content
     @people = Person.order(:quickname)
 
-    u_sess = DailyGameStats.new @user_id
+    guesses = GameStats.todays_guesses @user_id
 
-    prev_guesses = u_sess.stats[:guesses]
+    @prev_people = Person.where quickname: guesses
+    @prev_people = guesses.map { |q| @prev_people.find { |p| p.quickname == q } }.compact.reverse
 
-    @prev_people = Person.where quickname: prev_guesses
-    @prev_people = prev_guesses.map { |q| @prev_people.find { |p| p.quickname == q } }.compact.reverse
-
-    @nb_tries = prev_guesses.length
+    @nb_tries = guesses.length
     @won = @prev_people.include? @todays_person
 
     respond_to do |format|
@@ -23,14 +21,12 @@ class GameController < ApplicationController
   end
 
   def submit_guess
-    u_sess = DailyGameStats.new @user_id
-
-    prev_guesses = u_sess.stats[:guesses]
+    guesses = GameStats.todays_guesses @user_id
 
     @person = Person.find_by quickname: params[:quickname]
 
     respond_to do |format|
-      if prev_guesses.include? @todays_person.quickname
+      if guesses.include? @todays_person.quickname
         flash.now[:error] = "Partie terminée"
         format.turbo_stream { render turbo_stream: turbo_stream.replace("flash", partial: "layouts/flash") }
 
@@ -38,13 +34,13 @@ class GameController < ApplicationController
         flash.now[:alert] = "Personne pas trouvée. 🐒"
         format.turbo_stream { render turbo_stream: turbo_stream.replace("flash", partial: "layouts/flash") }
 
-      elsif prev_guesses.include? @person.quickname
+      elsif guesses.include? @person.quickname
         flash.now[:alert] = "Déjà essayé ! 🐒"
         format.turbo_stream { render turbo_stream: turbo_stream.replace("flash", partial: "layouts/flash") }
 
       else
-        u_sess.add_guess @person.quickname
-        @nb_tries = prev_guesses.length + 1
+        GameStats.add_guess_for(@user_id, @person.quickname)
+        @nb_tries = guesses.length + 1
 
         format.turbo_stream
       end

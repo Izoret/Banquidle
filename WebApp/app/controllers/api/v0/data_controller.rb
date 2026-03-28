@@ -7,9 +7,9 @@ module Api
     class DataController < ApplicationController
       skip_before_action :verify_authenticity_token
 
-      def nb_tries_yesterday
-        yesterdays_data = DailyGameStats.nb_tries_for_yesterday
-        render json: yesterdays_data, status: :ok
+      def last_performance
+        last_performance_data = GameStats.last_performance_dictionary
+        render json: last_performance_data.to_json, status: :ok
       end
     end
   end
