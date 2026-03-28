@@ -27,7 +27,7 @@ services:
       BOT_TOKEN: ${BOT_TOKEN?-We need a Bot Token !}
       BOT_ACTIVITY_ID: ${BOT_ACTIVITY_ID}
       BOT_GUILD_ID: ${BOT_GUILD_ID}
-      BOT_TEXT_CHANNEL: ${BOT_TEXT_CHANNEL}
+      BOT_TEXT_CHANNEL_ID: ${BOT_TEXT_CHANNEL}
     networks:
       - api
 
