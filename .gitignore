@@ -1,7 +1,35 @@
+# GENERAL
 .idea/
-
 *.swp
 
 node_modules/
 
 .env
+
+# BOT
+/Bot/res/*
+!/Bot/res/patches/
+/Bot/res/patches/*.md
+
+# WEBAPP
+/WebApp/db/seeds/custom.rb
+
+/WebApp/.bundle
+/WebApp/log/*
+/WebApp/tmp/*
+!/WebApp/log/.keep
+!/WebApp/tmp/.keep
+
+/WebApp/tmp/pids/*
+!/WebApp/tmp/pids/
+!/WebApp/tmp/pids/.keep
+
+/WebApp/storage/*
+!/WebApp/storage/.keep
+/WebApp/tmp/storage/*
+!/WebApp/tmp/storage/
+!/WebApp/tmp/storage/.keep
+
+/WebApp/public/assets
+
+/WebApp/config/*.key
