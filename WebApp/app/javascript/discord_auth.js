@@ -15,36 +15,21 @@ let auth
 
 async function setupDiscordSdk() {
     const discordClientId = getDiscordClientId()
-    console.log("id : " + discordClientId)
     if (!discordClientId) return
 
     const discordSdk = new DiscordSDK(discordClientId)
-    console.log(discordSdk)
     await discordSdk.ready()
-    console.log("Discord SDK is ready")
 
     const {code} = await discordSdk.commands.authorize({
         client_id: discordClientId, response_type: "code", state: "", prompt: "none", scope: ["identify", "guilds"],
     })
-
-    const response = await fetch("/api/token", {
-        method: "POST", headers: {
-            "Content-Type": "application/json"
-        }, body: JSON.stringify({
-            code
-        })
+    const response = await fetch("/api/v0/token", {
+        method: "POST", headers: {"Content-Type": "application/json"}, body: JSON.stringify({code})
     })
-
     const {access_token} = await response.json()
 
     auth = await discordSdk.commands.authenticate({access_token})
-
     if (auth == null) throw new Error("Discord SDK: Authenticate command failed")
-
-    console.log("Discord SDK is authenticated!")
-
-    const user_id = encodeURIComponent(auth.user.id)
-    console.log("Authenticated as", user_id, "!")
 
     return auth
 }
@@ -66,4 +51,3 @@ document.addEventListener("DOMContentLoaded", async () => {
     const turboStream = await response_game.text()
     Turbo.renderStreamMessage(turboStream)
 })
-

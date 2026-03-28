@@ -1,6 +1,6 @@
 export async function fetchDailyTries() {
     try {
-        const url = 'https://banquidle.izoret.fr/api/nb_tries_yesterday'
+        const url = 'http://webapp/api/v0/nb_tries_yesterday'
         const response = await fetch(url)
         if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`)
 

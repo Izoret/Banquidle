@@ -15,8 +15,10 @@ Rails.application.routes.draw do
   root "loading#index"
 
   namespace :api do
-    post "token", to: "discord_token#create"
-    get "nb_tries_yesterday", to: "data#nb_tries_yesterday"
+    namespace :v0 do
+      post "token", to: "discord_token#create"
+      get "nb_tries_yesterday", to: "data#nb_tries_yesterday"
+    end
   end
 
   resources :game, only: [] do
