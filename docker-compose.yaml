@@ -7,6 +7,7 @@ services:
     environment:
       RAILS_ENV: production
       RAILS_MASTER_KEY: ${RAILS_MASTER_KEY:?We need a Master Key !}
+      DISABLE_DATABASE_ENVIRONMENT_CHECK: 1
     networks:
       - cache
       - api
