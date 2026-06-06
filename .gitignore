@@ -12,7 +12,8 @@ node_modules/
 /Bot/res/patches/*.md
 
 # WEBAPP
-/WebApp/db/seeds/custom.rb
+/WebApp/db/seeds/*
+!/WebApp/db/seeds/custom.rb
 
 /WebApp/.bundle
 /WebApp/log/*

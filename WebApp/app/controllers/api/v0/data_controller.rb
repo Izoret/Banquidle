@@ -11,6 +11,11 @@ module Api
         last_performance_data = GameStats.last_performance_dictionary
         render json: last_performance_data.to_json, status: :ok
       end
+
+      def solver
+        a = "{hi mom}!"
+        render json: a.to_json, status: :ok
+      end
     end
   end
 end

@@ -7,6 +7,7 @@ Rails.application.routes.draw do
     namespace :v0 do
       post "token", to: "discord_token#create"
       get "last_performance", to: "data#last_performance"
+      get "solver", to: "data#solver"
     end
   end
 
