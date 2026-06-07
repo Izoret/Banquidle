@@ -1,12 +1,10 @@
 class SolverService
   class << self
     def solve(whole_universe)
-      puts "---"
-      puts "inside branch, universe is :", (whole_universe.empty? ? "[]" : whole_universe)
-      puts "---"
+      puts "---\ninside branch, universe is :", (whole_universe.empty? ? "[]" : whole_universe)
       case whole_universe.count
       when 0
-        999
+        9999
       when 1
         1
       when 2
@@ -25,11 +23,13 @@ class SolverService
           esperance_of_branches = 0
           puts "\nstarter for this experiment is " + starter.to_s
           branches.each do |branch|
+            next if branch.count == 0
+
             p_of_branch = branch.count.to_f / reduced_universe.count
 
             puts "-> going into branch with P(" + p_of_branch.to_s + ")"
             esperance = solve(branch)
-            puts "back from branch P(" + p_of_branch.to_s + "); Esperance = " + esperance.to_s
+            puts "back from branch; Esperance = " + esperance.to_s
 
             esperance_of_branches += p_of_branch * esperance
           end
