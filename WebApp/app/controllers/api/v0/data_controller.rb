@@ -13,8 +13,9 @@ module Api
       end
 
       def solver
-        a = "{hi mom}!"
-        render json: a.to_json, status: :ok
+        will_display = SolverService.solve Person.all.to_a
+
+        render json: will_display.to_json, status: :ok
       end
     end
   end

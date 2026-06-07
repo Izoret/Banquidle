@@ -10,4 +10,11 @@ class Person < ApplicationRecord
   def is_birthday?
     birth_day == Date.today.day and birth_month == Date.today.month
   end
+
+  def inspect
+    "~" + quickname + "~"
+  end
+  def to_s
+    "-" + quickname + "-"
+  end
 end
