@@ -1,10 +1,10 @@
 class SolverService
   class << self
-    def solve(universe)
-      puts "-----------------------"
-      puts "hello ! i am and my universe is", universe
-      puts "-----------------------"
-      case universe.count
+    def solve(whole_universe)
+      puts "---"
+      puts "inside branch, universe is :", (whole_universe.empty? ? "[]" : whole_universe)
+      puts "---"
+      case whole_universe.count
       when 0
         999
       when 1
@@ -12,44 +12,74 @@ class SolverService
       when 2
         1.5
       else
-        discriminators = Column.all.to_a
-        # p "disc:", discriminators
-        # p "univ:", universe
+        candidates = {}
 
-        p_of_correct_starter = 1.0 / universe.count
+        p_of_correct_starter = 1.0 / whole_universe.count
         p_of_wrong_starter = 1 - p_of_correct_starter
 
-        starter = universe.delete_at 0
+        whole_universe.each do |starter|
+          reduced_universe = whole_universe.clone
+          reduced_universe.delete starter
 
-        discrim = discriminators.delete_at 0
-        value_of_starter = starter.content_for discrim
+          branches = discriminate(reduced_universe, starter)
+          esperance_of_branches = 0
+          puts "\nstarter for this experiment is " + starter.to_s
+          branches.each do |branch|
+            p_of_branch = branch.count.to_f / reduced_universe.count
 
-        discrim_outcome_true = universe.select { |person| (person.content_for discrim) == value_of_starter }
-        discrim_outcome_false = universe.reject { |person| (person.content_for discrim) == value_of_starter }
+            puts "-> going into branch with P(" + p_of_branch.to_s + ")"
+            esperance = solve(branch)
+            puts "back from branch P(" + p_of_branch.to_s + "); Esperance = " + esperance.to_s
 
-        p_of_true_discrimator = discrim_outcome_true.count.to_f / universe.count
-        p_of_false_discrimator = discrim_outcome_false.count.to_f / universe.count
+            esperance_of_branches += p_of_branch * esperance
+          end
 
-        # esperance += p_of_true_discrimator * get_esp(discrim_outcome_true) +
-        #            p_of_false_discrimator * get_esp(discrim_outcome_false)
+          esperance_of_branches += 1
 
-        #      esperance
+          candidates[starter.quickname] = (p_of_correct_starter + p_of_wrong_starter * esperance_of_branches)
+                                            .round(7)
+        end
 
-        # get_esp([ 3, 4, 6, 5 ])
+        puts "\nhere are scores for each starter:", candidates, "\n"
 
-        puts "starter for this experiment is", starter
-        puts "-> going into true for " + p_of_true_discrimator.to_s + " probabilty"
-        esperance_of_true_dis = solve(discrim_outcome_true)
-        puts "we're back from true! esperance is " + esperance_of_true_dis.to_s
-        puts "-> going into false for " + p_of_false_discrimator.to_s + " probabilty"
-        esperance_of_false_dis = solve(discrim_outcome_false)
-        puts "we're back from false! esperance is " + esperance_of_false_dis.to_s
-
-        esperance_of_branches = p_of_true_discrimator * esperance_of_true_dis +
-                                p_of_false_discrimator * esperance_of_false_dis
-        esperance_of_branches += 1
-        p_of_correct_starter + p_of_wrong_starter * esperance_of_branches
+        candidates.values.min
       end
+    end
+
+    private
+
+    def discriminate(universe, starter)
+      columns = Column.all.to_a
+
+      starter_values = columns.map { |col| starter.content_for(col) }
+
+      outcomes = Array.new(3 ** columns.count) { [] }
+
+      universe.each do |person|
+        ternary = 0
+
+        columns.each_with_index do |parameter, idx|
+          person_attribute = person.content_for(parameter)
+          ternary = ternary * 3
+
+          expression_true = starter_values[idx] == person_attribute
+          expression_partial =
+            starter_values[idx]&.get_linked&.include?(person_attribute) ||
+            (starter_values[idx]&.value == person.content_for(parameter.linked_column)&.value)
+
+          if expression_true
+            # nothing to move
+          elsif expression_partial
+            ternary += 1
+          else
+            ternary += 2
+          end
+        end
+
+        outcomes[ternary] << person
+      end
+
+      outcomes
     end
   end
 end
