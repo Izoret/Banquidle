@@ -46,7 +46,6 @@ module Api
           Rails.logger.error "Discord Token Exchange Failed: #{response.body}"
           render json: { error: "Failed to exchange token with Discord", details: response.body }, status: :internal_server_error
         end
-
       rescue => e
         Rails.logger.error "Error in DiscordTokenController: #{e.message}"
         render json: { error: "Internal server error" }, status: :internal_server_error
