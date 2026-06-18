@@ -33,6 +33,10 @@ h1 {
         text-transform: uppercase;
         letter-spacing: 0.05em;
         text-shadow: 0 0 8px var(--correct-answer);
+
+        &#birthday {
+            color: var(--primary-color);
+        }
     }
 }
 
