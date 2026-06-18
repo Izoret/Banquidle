@@ -1,0 +1,34 @@
+services:
+  webapp:
+    image: ruby:3.4.5
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./WebApp:/app
+      - bundle_cache:/usr/local/bundle
+    environment:
+      RAILS_ENV: development
+      RAILS_MASTER_KEY: ${RAILS_MASTER_KEY:?-We need a Master Key !}
+    networks:
+      - backend
+    depends_on:
+      - redis
+    working_dir: /app
+    entrypoint: /app/bin/docker-entrypoint.dev
+    command: bundle exec rails server -b 0.0.0.0
+    tty: true
+    stdin_open: true
+  
+  redis:
+    image: redis@sha256:0e9ce48d0db4865e805389edcb078996322e85c5216834d1f55c99b79e4aebc5
+    volumes:
+      - redis_data:/data
+    networks:
+      - backend
+
+volumes:
+  redis_data:
+  bundle_cache:
+
+networks:
+  backend:
