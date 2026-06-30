@@ -1,3 +1,5 @@
+<%# locals: (person:, todays:) %>
+
 <tr>
   <% Column.all.each do |attribute|
     person_attribute_content = person.content_for(attribute)

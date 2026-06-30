@@ -1,3 +1,5 @@
+<%# locals: (todays:, nb_tries:) %>
+
 <% if todays.is_birthday? %>
   <h3 id="birthday">BON ANNIVERSAIRE <%= todays.quickname.upcase %> !!!</h3>
 <% else %>

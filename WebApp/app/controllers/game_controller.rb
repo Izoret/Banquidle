@@ -3,46 +3,56 @@ class GameController < ApplicationController
   before_action :get_todays_person, :require_auth
 
   def load_content
-    @people = Person.order(:quickname)
-
-    guesses = GameStats.todays_guesses @user_id
-
-    @prev_people = Person.where quickname: guesses
-    @prev_people = guesses.map { |q| @prev_people.find { |p| p.quickname == q } }.compact.reverse
-
-    @nb_tries = guesses.length
-    @won = @prev_people.include? @todays_person
+    previous_guesses = GameStats.todays_guesses @user_id
+    previous_people = Person.where quickname: previous_guesses
+    previous_quicknames = previous_guesses.map { |q| previous_people.find { |p| p.quickname == q } }.compact.reverse
 
     respond_to do |format|
-      format.turbo_stream {
-        render turbo_stream: turbo_stream.replace("temp-loading", template: "game/index")
-      }
+      format.turbo_stream do
+        render turbo_stream: turbo_stream.replace(
+          "temp-loading",
+          template: "game/index",
+          locals: {
+            user_id: @user_id,
+            nb_tries: previous_guesses.length,
+            people: Person.order(:quickname),
+            previous_picks: previous_quicknames,
+            won: previous_quicknames.include?(@todays_person),
+            todays_person: @todays_person
+          }
+        )
+      end
     end
   end
 
   def submit_guess
     guesses = GameStats.todays_guesses @user_id
 
-    @person = Person.find_by quickname: params[:quickname]
+    person = Person.find_by quickname: params[:quickname]
 
     respond_to do |format|
       if guesses.include? @todays_person.quickname
         flash.now[:error] = "Partie terminée"
         format.turbo_stream { render turbo_stream: turbo_stream.replace("flash", partial: "layouts/flash") }
 
-      elsif @person.nil?
+      elsif person.nil?
         flash.now[:alert] = "Personne pas trouvée. 🐒"
         format.turbo_stream { render turbo_stream: turbo_stream.replace("flash", partial: "layouts/flash") }
 
-      elsif guesses.include? @person.quickname
+      elsif guesses.include? person.quickname
         flash.now[:alert] = "Déjà essayé ! 🐒"
         format.turbo_stream { render turbo_stream: turbo_stream.replace("flash", partial: "layouts/flash") }
 
       else
-        GameStats.add_guess(@user_id, @person.quickname)
-        @nb_tries = guesses.length + 1
+        GameStats.add_guess(@user_id, person.quickname)
 
-        format.turbo_stream
+        format.turbo_stream do
+          render locals: {
+            guessed_person: person,
+            todays_person: @todays_person,
+            nb_tries: guesses.length + 1
+          }
+        end
       end
     end
   end
