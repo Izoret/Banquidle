@@ -7,15 +7,16 @@ class GameController < ApplicationController
     previous_people = Person.where quickname: previous_guesses
     previous_quicknames = previous_guesses.map { |q| previous_people.find { |p| p.quickname == q } }.compact.reverse
 
+    available_people = Person.where.not(quickname: previous_guesses).order(:quickname)
+
     respond_to do |format|
       format.turbo_stream do
         render turbo_stream: turbo_stream.replace(
           "temp-loading",
           template: "game/index",
           locals: {
-            user_id: @user_id,
             nb_tries: previous_guesses.length,
-            people: Person.order(:quickname),
+            available_people: available_people,
             previous_picks: previous_quicknames,
             won: previous_quicknames.include?(@todays_person),
             todays_person: @todays_person
@@ -50,7 +51,8 @@ class GameController < ApplicationController
           render locals: {
             guessed_person: person,
             todays_person: @todays_person,
-            nb_tries: guesses.length + 1
+            nb_tries: guesses.length + 1,
+            available_people_left: Person.where.not(quickname: (GameStats.todays_guesses @user_id)).order(:quickname)
           }
         end
       end

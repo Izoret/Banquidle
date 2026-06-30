@@ -1,11 +1,9 @@
-<%# locals: (guessed_person:, todays_person:, nb_tries:) %>
+<%# locals: (guessed_person:, todays_person:, nb_tries:, available_people_left:) %>
 
 <%= turbo_stream.prepend "guesses", partial: "people/person", locals: { person: guessed_person, todays: todays_person } %>
 
 <% if guessed_person == todays_person %>
-  <%= turbo_stream.update "congrats-div" do %>
-    <%= render partial: "game/congrats", locals: { todays: todays_person, nb_tries: nb_tries } %>
-  <% end %>
-
-  <%= turbo_stream.remove "guessForm" %>
+  <%= turbo_stream.update "form-or-congrats-div", partial: "congrats", locals: { todays: todays_person, nb_tries: nb_tries } %>
+<% else %>
+  <%= turbo_stream.update "form-or-congrats-div", partial: "guess_form", locals: { available_people: available_people_left } %>
 <% end %>

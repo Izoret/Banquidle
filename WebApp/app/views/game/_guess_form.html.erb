@@ -1,0 +1,9 @@
+<%# locals: (available_people:) %>
+
+<%= form_with url: submit_guess_game_index_path, data: { turbo_stream: true }, method: :post do |f| %>
+  <%= f.label :quickname, "Choisis une personne :" %>
+  <%= f.collection_select :quickname, available_people, :quickname, :quickname,
+                          { include_blank: "----" }, id: "personInput" %>
+  <%= f.hidden_field :user_id, value: @user_id %>
+  <%= f.submit "Envoyer" %>
+<% end %>

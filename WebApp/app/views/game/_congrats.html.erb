@@ -1,11 +1,13 @@
 <%# locals: (todays:, nb_tries:) %>
 
-<% if todays.is_birthday? %>
-  <h3 id="birthday">BON ANNIVERSAIRE <%= todays.quickname.upcase %> !!!</h3>
-<% else %>
-  <% if nb_tries == 1 %>
-    <h3>Lucky !</h3>
+<div id="congrats-div">
+  <% if todays.is_birthday? %>
+    <h3 id="birthday">BON ANNIVERSAIRE <%= todays.quickname.upcase %> !!!</h3>
   <% else %>
-    <h3>Bravo ! Tu as pris <%= nb_tries %> essais.</h3>
+    <% if nb_tries == 1 %>
+      <h3>Lucky !</h3>
+    <% else %>
+      <h3>Bravo ! Tu as pris <%= nb_tries %> essais.</h3>
+    <% end %>
   <% end %>
-<% end %>
+</div>
