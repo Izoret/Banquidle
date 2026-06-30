@@ -12,7 +12,7 @@
 
   <meta
     name="discord-client-id"
-    content="<%= Rails.application.credentials.discord![:client_id] %>"
+    content="<%= Rails.application.credentials.dig(:discord, :client_id) %>"
     />
 
   <%= yield :head %>
