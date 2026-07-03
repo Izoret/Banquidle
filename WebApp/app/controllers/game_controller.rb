@@ -3,7 +3,7 @@ class GameController < ApplicationController
   before_action :get_todays_person, :require_auth
 
   def load_content
-    previous_guesses = GameStats.todays_guesses @user_id
+    previous_guesses = GameStatsService.todays_guesses @user_id
     previous_people = Person.where quickname: previous_guesses
     previous_quicknames = previous_guesses.map { |q| previous_people.find { |p| p.quickname == q } }.compact.reverse
 
@@ -27,7 +27,7 @@ class GameController < ApplicationController
   end
 
   def submit_guess
-    guesses = GameStats.todays_guesses @user_id
+    guesses = GameStatsService.todays_guesses @user_id
 
     person = Person.find_by quickname: params[:quickname]
 
@@ -45,14 +45,14 @@ class GameController < ApplicationController
         format.turbo_stream { render turbo_stream: turbo_stream.replace("flash", partial: "layouts/flash") }
 
       else
-        GameStats.add_guess(@user_id, person.quickname)
+        GameStatsService.add_guess(@user_id, person.quickname)
 
         format.turbo_stream do
           render locals: {
             guessed_person: person,
             todays_person: @todays_person,
             nb_tries: guesses.length + 1,
-            available_people_left: Person.where.not(quickname: (GameStats.todays_guesses @user_id)).order(:quickname)
+            available_people_left: Person.where.not(quickname: (GameStatsService.todays_guesses @user_id)).order(:quickname)
           }
         end
       end

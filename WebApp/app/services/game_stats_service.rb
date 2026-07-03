@@ -1,4 +1,4 @@
-class GameStats
+class GameStatsService
   class << self
     def todays_guesses(user_id)
       $redis.smembers "guesses:#{Date.today}:#{user_id}"

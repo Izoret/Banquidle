@@ -8,7 +8,7 @@ module Api
       skip_before_action :verify_authenticity_token
 
       def last_performance
-        last_performance_data = GameStats.last_performance_dictionary
+        last_performance_data = GameStatsService.last_performance_dictionary
         render json: last_performance_data.to_json, status: :ok
       end
     end
