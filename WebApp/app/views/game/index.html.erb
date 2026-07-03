@@ -1,4 +1,7 @@
-<%# locals: (nb_tries:, available_people:, previous_picks:, won:, todays_person:) %>
+<%# locals: (nb_tries:, available_people:, previous_picks:, won:, todays_person:, banned_people:) %>
+
+<p>gens pas dispo: <%= banned_people %></p>
+<br>
 
 <div id="form-or-congrats-div">
   <% if won %>

@@ -8,7 +8,8 @@ class GameController < ApplicationController
     previous_quicknames = previous_guesses.map { |q| previous_people.find { |p| p.quickname == q } }.compact.reverse
 
     todays = TodaysPersonService.get_daily_target
-    available_people = Person.where.not(quickname: previous_guesses).where.not(quickname: TodaysPersonService.get_daily_banned_quicknames).order(:quickname)
+    banned = TodaysPersonService.get_daily_banned_quicknames
+    available_people = Person.where.not(quickname: previous_guesses + banned).order(:quickname)
 
     respond_to do |format|
       format.turbo_stream do
@@ -20,7 +21,8 @@ class GameController < ApplicationController
             available_people: available_people,
             previous_picks: previous_quicknames,
             won: previous_quicknames.include?(todays),
-            todays_person: todays
+            todays_person: todays,
+            banned_people: banned
           }
         )
       end
