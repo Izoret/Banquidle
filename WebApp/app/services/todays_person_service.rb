@@ -5,14 +5,8 @@ class TodaysPersonService
     end
 
     todays = get_quickname_of Date.today
-    yesterdays = get_quickname_of Date.yesterday
 
-    if todays == yesterdays
-      fifteen_ago = get_quickname_of(Date.today - 15)
-      Person.find_by quickname: fifteen_ago
-    else
-      Person.find_by quickname: todays
-    end
+    Person.find_by quickname: todays
   end
 
   def self.get_determinist
