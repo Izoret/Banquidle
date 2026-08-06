@@ -1,6 +1,6 @@
-class TodaysPersonService
+class DailyGenerationService
   class << self
-    def get_daily_target
+    def todays_answer
       if (person = born_today)
         return person
       end
@@ -8,7 +8,7 @@ class TodaysPersonService
       Person.find_by fqdn: get_target(Date.today)
     end
 
-    def get_daily_banned_fqdns
+    def todays_banned_fqdns
       get_banned(Date.today, 5)
     end
 
@@ -32,7 +32,7 @@ class TodaysPersonService
 
       1.upto(number_of_banned) do |n|
         if md5_decimal == 0
-          raise "You have banned to many people for this size of a md5 decimal bro"
+          raise "You have banned too many people for this size of a md5 decimal bro"
           # yes this is stupid. but it's hand-written :D
         end
         idx = md5_decimal % step
