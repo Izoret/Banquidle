@@ -1,8 +1,5 @@
 <%# locals: (nb_tries:, available_people:, previous_picks:, won:, todays_person:, banned_people:) %>
 
-<p>gens pas dispo: <%= banned_people %></p>
-<br>
-
 <div id="form-or-congrats-div">
   <% if won %>
     <%= render partial: "congrats", locals: { todays: todays_person, nb_tries: nb_tries } if won %>
@@ -10,6 +7,8 @@
     <%= render partial: "guess_form", locals: { available_people: available_people } %>
   <% end %>
 </div>
+
+<p>gens pas dispo: <%= banned_people %></p>
 
 <div class="table-container">
   <table>

@@ -17,21 +17,21 @@ name_unknown = AttributeContent.create!(column: nom, value: "?")
 male = AttributeContent.create!(column: sex, value: "M")
 female = AttributeContent.create!(column: sex, value: "F")
 
-bayrou = Person.create(quickname: "Bayrou")
+bayrou = Person.create(fqdn: "Bayrou")
 bayrou.attribute_contents << [
   AttributeContent.create_or_find_by!(column: prenom, value: "François"),
   AttributeContent.create_or_find_by!(column: nom, value: "Bayrou"),
   male
 ]
 
-fillon = Person.create(quickname: "Fillon?")
+fillon = Person.create(fqdn: "Fillon?")
 fillon.attribute_contents << [
   AttributeContent.create_or_find_by!(column: prenom, value: "François"),
   name_unknown,
   male
 ]
 
-louane = Person.create(quickname: "Louane")
+louane = Person.create(fqdn: "Louane")
 louane.attribute_contents << [
   AttributeContent.create_or_find_by!(column: prenom, value: "Louane"),
   name_unknown,

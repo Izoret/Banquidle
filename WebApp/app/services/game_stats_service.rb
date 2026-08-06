@@ -4,8 +4,8 @@ class GameStatsService
       $redis.smembers "guesses:#{Date.today}:#{user_id}"
     end
 
-    def add_guess(user_id, quickname)
-      save_with_ttl("guesses:#{Date.today}:#{user_id}", quickname)
+    def add_guess(user_id, fqdn)
+      save_with_ttl("guesses:#{Date.today}:#{user_id}", fqdn)
       save_with_ttl("players:#{Date.today}", user_id)
     end
 

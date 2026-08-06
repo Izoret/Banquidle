@@ -3,13 +3,13 @@ class GameController < ApplicationController
   before_action :require_auth
 
   def load_content
-    previous_guesses = GameStatsService.todays_guesses @user_id
-    previous_people = Person.where quickname: previous_guesses
-    previous_quicknames = previous_guesses.map { |q| previous_people.find { |p| p.quickname == q } }.compact.reverse
+    fqdns_already_tried = GameStatsService.todays_guesses @user_id
+    people_already_tried = fqdns_already_tried.map { |q| Person.find { |p| p.fqdn == q } }.compact.reverse
 
     todays = TodaysPersonService.get_daily_target
-    banned = TodaysPersonService.get_daily_banned_quicknames
-    available_people = Person.where.not(quickname: previous_guesses + banned).order(:quickname)
+    banned = TodaysPersonService.get_daily_banned_fqdns
+
+    available_people = Person.where.not(fqdn: fqdns_already_tried + banned).order(:fqdn)
 
     respond_to do |format|
       format.turbo_stream do
@@ -17,10 +17,10 @@ class GameController < ApplicationController
           "temp-loading",
           template: "game/index",
           locals: {
-            nb_tries: previous_guesses.length,
+            nb_tries: fqdns_already_tried.length,
             available_people: available_people,
-            previous_picks: previous_quicknames,
-            won: previous_quicknames.include?(todays),
+            previous_picks: people_already_tried,
+            won: people_already_tried.include?(todays),
             todays_person: todays,
             banned_people: banned
           }
@@ -34,10 +34,10 @@ class GameController < ApplicationController
 
     todays = TodaysPersonService.get_daily_target
 
-    person = Person.find_by quickname: params[:quickname]
+    person = Person.find_by fqdn: params[:fqdn]
 
     respond_to do |format|
-      if guesses.include? todays.quickname
+      if guesses.include? todays.fqdn
         flash.now[:error] = "Partie terminée"
         format.turbo_stream { render turbo_stream: turbo_stream.replace("flash", partial: "layouts/flash") }
 
@@ -45,23 +45,23 @@ class GameController < ApplicationController
         flash.now[:alert] = "Personne pas trouvée. 🐒"
         format.turbo_stream { render turbo_stream: turbo_stream.replace("flash", partial: "layouts/flash") }
 
-      elsif guesses.include? person.quickname
+      elsif guesses.include? person.fqdn
         flash.now[:alert] = "Déjà essayé ! 🐒"
         format.turbo_stream { render turbo_stream: turbo_stream.replace("flash", partial: "layouts/flash") }
 
-      elsif TodaysPersonService.get_daily_banned_quicknames.include? person.quickname
+      elsif TodaysPersonService.get_daily_banned_fqdns.include? person.fqdn
         flash.now[:alert] = "Bah chef il est ban ajd lui 🐒"
         format.turbo_stream { render turbo_stream: turbo_stream.replace("flash", partial: "layouts/flash") }
 
       else
-        GameStatsService.add_guess(@user_id, person.quickname)
+        GameStatsService.add_guess(@user_id, person.fqdn)
 
         format.turbo_stream do
           render locals: {
             guessed_person: person,
             todays_person: todays,
             nb_tries: guesses.length + 1,
-            available_people_left: Person.where.not(quickname: (GameStatsService.todays_guesses @user_id)).order(:quickname)
+            available_people_left: Person.where.not(fqdn: (GameStatsService.todays_guesses @user_id)).order(:fqdn)
           }
         end
       end

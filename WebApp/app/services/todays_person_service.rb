@@ -5,25 +5,25 @@ class TodaysPersonService
         return person
       end
 
-      Person.find_by quickname: get_target(Date.today)
+      Person.find_by fqdn: get_target(Date.today)
     end
 
-    def get_daily_banned_quicknames
+    def get_daily_banned_fqdns
       get_banned(Date.today, 5)
     end
 
     private
 
     def get_target(date)
-      quicknames = Person.order(:quickname).pluck(:quickname)
+      fqdns = Person.order(:fqdn).pluck(:fqdn)
       md5_hex = Digest::MD5.hexdigest(date.to_s)
       md5_decimal = md5_hex.to_i 16
 
-      quicknames[md5_decimal % quicknames.size]
+      fqdns[md5_decimal % fqdns.size]
     end
 
     def get_banned(date, number_of_banned)
-      quicknames = Person.order(:quickname).pluck(:quickname)
+      fqdns = Person.order(:fqdn).pluck(:fqdn)
       md5_hex = Digest::MD5.hexdigest date.to_s
       md5_decimal = md5_hex.to_i 16
 
@@ -36,7 +36,7 @@ class TodaysPersonService
           # yes this is stupid. but it's hand-written :D
         end
         idx = md5_decimal % step
-        banned << quicknames.delete_at(idx % quicknames.size)
+        banned << fqdns.delete_at(idx % fqdns.size)
         md5_decimal /= step
       end
 

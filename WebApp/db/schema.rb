@@ -12,11 +12,11 @@
 
 ActiveRecord::Schema[8.1].define(version: 2025_12_19_123512) do
   create_table "people", force: :cascade do |t|
-    t.string "quickname", null: false
+    t.string "fqdn", null: false
     t.integer "birth_day", null: true
     t.integer "birth_month", null: true
 
-    t.index [ "quickname" ], name: "index_people_on_quickname", unique: true
+    t.index [ "fqdn" ], name: "index_people_on_fqdn", unique: true
   end
 
   create_table "attribute_contents_people", id: false, force: :cascade do |t|
