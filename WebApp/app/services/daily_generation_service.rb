@@ -5,7 +5,12 @@ class DailyGenerationService
         return person
       end
 
-      Person.find_by fqdn: get_target(Date.today)
+      fqdns = Person.order(:fqdn).pluck(:fqdn)
+      md5_hex = Digest::MD5.hexdigest(Date.today.to_s)
+      md5_decimal = md5_hex.to_i 16
+      fqdn = fqdns[md5_decimal % fqdns.size]
+
+      Person.find_by fqdn: fqdn
     end
 
     def todays_banned_fqdns
@@ -14,16 +19,8 @@ class DailyGenerationService
 
     private
 
-    def get_target(date)
-      fqdns = Person.order(:fqdn).pluck(:fqdn)
-      md5_hex = Digest::MD5.hexdigest(date.to_s)
-      md5_decimal = md5_hex.to_i 16
-
-      fqdns[md5_decimal % fqdns.size]
-    end
-
     def get_banned(date, number_of_banned)
-      fqdns = Person.order(:fqdn).pluck(:fqdn)
+      bannable = Person.order(:fqdn).without(todays_answer).pluck(:fqdn)
       md5_hex = Digest::MD5.hexdigest date.to_s
       md5_decimal = md5_hex.to_i 16
 
@@ -36,7 +33,7 @@ class DailyGenerationService
           # yes this is stupid. but it's hand-written :D
         end
         idx = md5_decimal % step
-        banned << fqdns.delete_at(idx % fqdns.size)
+        banned << bannable.delete_at(idx % bannable.size)
         md5_decimal /= step
       end
 
