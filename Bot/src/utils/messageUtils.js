@@ -43,8 +43,6 @@ export async function sendBanquidleInvite(client, targetMessage = null, data = {
             channel = guild.channels.cache.get(C.TEXT_CHANNEL_ID)
         }
 
-        if (!channel?.isTextBased()) return
-
         for (const line of messageLines) {
             await channel.send(line)
         }
