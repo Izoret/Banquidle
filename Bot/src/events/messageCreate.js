@@ -6,11 +6,11 @@ export async function handleMessageCreate(message, client) {
     if (message.author.bot) return
     const content = message.content.toLowerCase()
 
-    if (content.startsWith('!b')) {
+    if (content.startsWith('!banq')) {
         await sendBanquidleInvite(client, message)
     }
 
-    if (content.startsWith('!p')) {
+    if (content.startsWith('!patch')) {
         const notes = await getLatestPatchNote()
         if (notes.length > 2000) {
             await message.reply("The patch note is too long!")
