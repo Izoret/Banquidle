@@ -8,11 +8,10 @@ export async function handleReady(client) {
 
     cron.schedule(C.CRON_SCHEDULE_START, async () => {
         const randomDelayMs = Math.floor(Math.random() * 1000 * 60 * C.CRON_RANDOM_WAIT_MAX_MINUTES)
-        const scheduledTime = new Date(Date.now() + randomDelayMs)
 
         console.log('> running daily in ' + randomDelayMs + ' minutes..')
 
-        setTimeout(async() => {
+        setTimeout(async () => {
             console.log("> Sending !")
             try {
                 const data = await fetchDailyTries()
