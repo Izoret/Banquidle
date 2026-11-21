@@ -2,6 +2,7 @@ services:
   webapp:
     build: WebApp
     image: banquidle-webapp
+    restart: unless-stopped
     ports:
       - "${PORT:-3000}:3000"
     environment:
@@ -16,6 +17,7 @@ services:
   
   redis:
     image: redis@sha256:0e9ce48d0db4865e805389edcb078996322e85c5216834d1f55c99b79e4aebc5
+    restart: unless-stopped
     volumes:
       - redis_data:/data
     networks:
@@ -23,7 +25,7 @@ services:
 
   bot:
     build: Bot
-    restart: always
+    restart: unless-stopped
     environment:
       BOT_TOKEN: ${BOT_TOKEN?-We need a Bot Token !}
       BOT_ACTIVITY_ID: ${BOT_ACTIVITY_ID}
