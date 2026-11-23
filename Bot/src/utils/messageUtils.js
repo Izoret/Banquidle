@@ -44,7 +44,12 @@ export async function sendBanquidleInvite(client, targetMessage = null, data = {
         }
 
         for (const line of messageLines) {
-            await channel.send(line)
+            await channel.send({
+                content: line,
+                allowedMentions: {
+                    parse: []
+                }
+            })
         }
 
         const startButton = new ButtonBuilder()
